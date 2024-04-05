@@ -1,0 +1,23 @@
+.nav_item{
+    width: 40%;
+    color: whitesmoke;
+    /* border: 1px solid whitesmoke; */
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    margin-right: 6rem;
+    border-radius: 2.5rem;
+}
+.nav_item:hover{
+    background-color: grey;
+    transition: 1s;
+}
+
+.nav_item img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.nav_item p{
+    font-size: 2rem;
+}

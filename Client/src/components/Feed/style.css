@@ -1,0 +1,9 @@
+.feed{
+    width: 100%;
+    color: whitesmoke;
+    overflow-y: scroll;
+}
+.feed h1{
+    text-align: center;
+    /* position: sticky; */
+}

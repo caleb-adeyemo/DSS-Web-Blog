@@ -1,0 +1,10 @@
+* {
+    box-sizing: border-box;
+}
+
+.home{
+    display: flex;
+    width: 80%;
+    background-color: black;
+    justify-content: space-between;
+}

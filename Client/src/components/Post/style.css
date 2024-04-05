@@ -1,0 +1,51 @@
+.post{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 60vh;
+    color: white;
+    border: 1px solid grey;
+    padding: 1rem 5rem;
+}
+.post-header{
+    display: flex;
+    align-items: center; /* Align items vertically */
+    width: 100%;
+    height: 50px;
+    /* background-color: aqua; */
+}
+.userName{
+    width: 100%;
+    color: whitesmoke;
+    font-size: 1rem;
+    margin: 0px;
+}
+
+.userTag{
+    color: grey;
+    font-size: 1rem;
+}
+
+.userDp{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.post p{
+    margin: 0px;
+    margin-bottom: 15px;
+}
+.media{
+    /* background-color: aqua; */
+    /* border: 1px solid white; */
+    display: flex;
+    
+}
+.media img{
+    max-height: 400px;
+    max-width: 300px;
+    border-radius: 1rem;
+    border: 2px solid grey;
+}
