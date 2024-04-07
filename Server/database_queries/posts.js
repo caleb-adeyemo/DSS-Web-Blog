@@ -28,6 +28,22 @@ async function getAllPosts(){
     }
 }
 
+async function addPost(message){
+    const qry = `insert into posts (c_no, post_msg) values
+                (5, '${message}');`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        const response = (await pool.query(qry));
+        return response
+      }
+    catch (error) {
+        console.error("Error making post:", error);
+    }
+}
+
 module.exports = {
-    getAllPosts
+    getAllPosts,
+    addPost
 }

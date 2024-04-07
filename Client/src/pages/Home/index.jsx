@@ -32,7 +32,6 @@ function Home() {
 
   const toggleForm = () =>{
     setShowForm(!showForm);
-    console.log("ggg")
   };
 
   return (
