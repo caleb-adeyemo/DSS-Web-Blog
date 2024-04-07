@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios';
 import './style.css'
 
-import Feed from '../../components/Feed'
-import Nav from '../../components/SideNav'
-import Popular from '../../components/SidePopular'
-import PostForm from '../../components/Form';
+import Feed from '../../components/Feed/feed'
+import Nav from '../../components/SideNav/sideNav'
+import Popular from '../../components/SidePopular/popular'
+import PostForm from '../../components/Form/TweetForm/tweet';
 
 import post from '../../assests/Images/post.jpg'
 

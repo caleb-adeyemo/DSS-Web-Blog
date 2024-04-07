@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 
 
 import './style.css';
-import Button from '../Buttons';
+import Button from '../../Buttons/button';
 
 function PostForm({ dp }) {
   // Route to send the form data when submitted
