@@ -1,11 +1,10 @@
 .nav_item{
     width: 40%;
     color: whitesmoke;
-    /* border: 1px solid whitesmoke; */
     display: flex;
     justify-content: space-around;
+    align-items: center;
     padding: 1rem;
-    margin-right: 6rem;
     border-radius: 2.5rem;
 }
 .nav_item:hover{
@@ -19,5 +18,5 @@
 }
 
 .nav_item p{
-    font-size: 2rem;
+    font-size: 20px;
 }

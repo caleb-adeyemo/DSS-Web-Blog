@@ -5,9 +5,14 @@ import './style.css'
 import Feed from '../../components/Feed'
 import Nav from '../../components/SideNav'
 import Popular from '../../components/SidePopular'
+import PostForm from '../../components/Form';
+
+import post from '../../assests/Images/post.jpg'
+
 
 function Home() {
 
+  // Fetch content from Back end
   const[feedPosts,setFeedPosts]= useState([])
 
   const fetchFeedFromBackend = async () => {
@@ -22,11 +27,20 @@ function Home() {
     fetchFeedFromBackend()
   }, []);
 
+  // change the state of the home page
+  const [showForm, setShowForm] = useState(false)
+
+  const toggleForm = () =>{
+    setShowForm(!showForm);
+    console.log("ggg")
+  };
+
   return (
     <div className='home'>
-        <Nav/>
-        <Feed className='home-feed' posts={feedPosts}/>
-        <Popular />
+        <Nav clickFun={toggleForm}/> {/* Render the Navigation section 'Left side of the home webpage'*/}
+        <Feed className='home-feed' posts={feedPosts}/> {/* Render the Feed section 'Middle side of the home webpage'*/}
+        <Popular/> {/* Render the Popular section 'Right side of the home webpage'*/}
+        {showForm && <div className='form-container'><PostForm dp={post} onClose={toggleForm} /></div> /* Render the post Form if the bool 'showForm' is true */}
     </div>
   )
 }
