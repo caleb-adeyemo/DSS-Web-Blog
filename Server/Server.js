@@ -10,7 +10,9 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => { console.log(`server listening at port ${PORT}`) });
 
 // Import route files
+const loginRoute = require('./routes/login');
 const postsRoute = require('./routes/posts');
 
 // Use route files
-app.use('/', postsRoute);
+app.use('/', loginRoute);
+app.use('/home', postsRoute);

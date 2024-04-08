@@ -8,7 +8,7 @@ import Button from '../../Buttons/button';
 
 function PostForm({ dp }) {
   // Route to send the form data when submitted
-  const apiUrl = 'http://localhost:3001/';
+  const apiUrl = 'http://localhost:3001/home';
 
   // var to set and store the tweet message in the form
   const [message, setMessage] = useState('');

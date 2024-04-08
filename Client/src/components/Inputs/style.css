@@ -1,0 +1,13 @@
+.custom-input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 2rem;
+    border: none;
+    outline: none;
+    background-color: rgb(147, 147, 147);
+    color: whitesmoke;
+  }
+.invalid{
+    background-color: rgb(218, 11, 11);
+    border: 1px solid white; /* Changed border property */
+}
