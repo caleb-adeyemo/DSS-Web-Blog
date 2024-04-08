@@ -1,11 +1,11 @@
 import React from 'react'
 import './style.css'
 
-import NavItem from '../NavItem'
+import NavItem from '../NavItem/navItem'
 import home from '../../assests/Svg/home.svg'
 import explore from '../../assests/Svg/explore.svg'
 import hashTag from '../../assests/Svg/hashTag.svg'
-import Button from '../Buttons'
+import Button from '../Buttons/button'
 
 
 

@@ -1,0 +1,16 @@
+.loginBackground{
+    background-color: black;
+    width: 100%;
+    height: 100vh;
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.loginWrapper{
+    width: 60%;
+    height: 60vh;
+    /* border: 1px solid whitesmoke; */
+}

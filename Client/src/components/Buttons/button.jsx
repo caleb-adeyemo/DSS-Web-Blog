@@ -4,7 +4,7 @@ import './style.css'
 const Button = ({title, clickFun}) => {
   return (
     <div className='buttonWrapper'> 
-        <button  className="button" onClick={clickFun}>{title}</button>
+        <button  className="button" onClick={clickFun} type='submit'>{title}</button>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import Post from '../Post'
+import Post from '../Post/post'
 import './style.css'
 import post from '../../assests/Images/post.jpg'
 // import emoji from '../../assests/Images/emoji.jpg'
