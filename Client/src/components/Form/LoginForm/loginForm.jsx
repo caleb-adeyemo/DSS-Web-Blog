@@ -19,12 +19,12 @@ function LoginForm() {
 
   // Object to store the form data
   const [formData, setFormData] = useState({
-    userName: '',
+    username: '',
     password: ''
   });
 
   // References to CustomInput components
-  const userNameInputRef = useRef();
+  const usernameInputRef = useRef();
   const passwordInputRef = useRef();
 
 
@@ -33,13 +33,17 @@ function LoginForm() {
     // Make a POST request using Axios
     try {
         // Send data
-        const response = await axios.post(apiUrl, formData);
+        const response = await axios.post(apiUrl, formData, {
+          withCredentials: true, // Enable sending cookies
+        });
 
         // Check to see if the data was successfully sent
-        if (response.data.status_code === 200) {
+        if (response.data.success == true) {
+            // toast the success of logining in
             toast.success(response.data.message);
             navigate('/home')
         } else {
+            // Toast the failed log in attempt
             toast.error(response.data.message);
         }
     } catch (error) {
@@ -58,10 +62,10 @@ function LoginForm() {
     await submitForm();
 
     // Clear the form fields after submission
-    setFormData({ userName: '', password: '' });
+    setFormData({ username: '', password: '' });
 
     // Clear the input values
-    userNameInputRef.current.resetInput()
+    usernameInputRef.current.resetInput()
     passwordInputRef.current.resetInput();
   };
 
@@ -86,7 +90,7 @@ function LoginForm() {
         </div>
         <div className='loginFormLeftForm'>
           <form onSubmit={handleSubmit}>
-            <CustomInput type={'text'} placeholder={'User-name'} name={'userName'} onChange={handleChange} ref={userNameInputRef}/>
+            <CustomInput type={'text'} placeholder={'User-name'} name={'username'} onChange={handleChange} ref={usernameInputRef}/>
             <CustomInput type={'password'} placeholder={'Password'} name={'password'} onChange={handleChange} ref={passwordInputRef} />
             <button id='loginFormButton' className='button' type='submit'> Login</button>
           </form>

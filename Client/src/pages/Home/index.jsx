@@ -17,7 +17,7 @@ function Home() {
 
   const fetchFeedFromBackend = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/home'); // Adjust the API endpoint accordingly
+      const response = await axios.get('http://localhost:3001/home', {withCredentials:true}); // Adjust the API endpoint accordingly
       setFeedPosts(response.data.data)
     } catch (error) {
       console.error('Error fetching data from backend:', error);

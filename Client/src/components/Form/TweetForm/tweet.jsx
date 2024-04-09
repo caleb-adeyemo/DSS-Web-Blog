@@ -28,8 +28,9 @@ function PostForm({ dp }) {
     //Make a POST request using Axios
     try {
       // Send data
-      const response = await axios.post(apiUrl, postData);
-      console.log(response.data)
+      const response = await axios.post(apiUrl, postData,{
+        withCredentials: true
+      });
       
       // Check to see if the data was successfully sent 
       if (response.data.status_code === 200) {
