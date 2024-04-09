@@ -2,26 +2,26 @@ const express = require("express")
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
-const redis = require('redis');
+// const RedisStore = require('connect-redis')(session);
+// const redis = require('redis');
 
-const redisClient = redis.createClient();
+// const redisClient = redis.createClient();
 
-app.use(session({
-    store: new RedisStore({ client: redisClient }),
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false } // Set secure to true in production if using HTTPS
-}));
+// app.use(session({
+//     store: new RedisStore({ client: redisClient }),
+//     secret: 'your_secret_key',
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: false } // Set secure to true in production if using HTTPS
+// }));
 
-app.use(cookieParser());
-app.use(cookieSession({
-    name: 'session',
-    secret: 'your_secret_key',
-    secure: false, // Set to true in production if using HTTPS
-    httpOnly: true
-}));
+// app.use(cookieParser());
+// app.use(cookieSession({
+//     name: 'session',
+//     secret: 'your_secret_key',
+//     secure: false, // Set to true in production if using HTTPS
+//     httpOnly: true
+// }));
 
 
 const app = express()
