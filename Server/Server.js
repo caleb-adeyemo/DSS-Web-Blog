@@ -1,7 +1,9 @@
-const express = require("express")
-const cors = require('cors');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const express = require("express"); // Express
+const cors = require('cors'); // Routing
+const cookieParser = require('cookie-parser'); // Cookies
+const session = require('express-session'); // Sessions
+const jwt = require("jsonwebtoken"); // JWT tokens
+const bcrypt = require("bcrypt");
 // const RedisStore = require('connect-redis')(session);
 // const redis = require('redis');
 
