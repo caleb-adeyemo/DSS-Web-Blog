@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const database = require("../database_queries/posts");
+const database = require("../database_queries/users");
 const authenticateToken = require("../Authentication/auth")
 
 

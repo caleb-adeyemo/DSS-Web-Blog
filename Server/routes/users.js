@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const database = require("../database_queries/users");
 const bcrypt = require("bcrypt");
+const authenticateToken = require("../Authentication/auth")
 
 // Create Users
 router.post("/create_account", async (req, res) => {
@@ -38,3 +39,29 @@ router.post("/create_account", async (req, res) => {
         res.status(500).send(data);
     }
 });
+
+// Get Users Personal tweets
+router.get("/personal_page", authenticateToken, async (req, res) => {
+    try {
+        // Decompose the req json obj
+        const username = req.body.username;
+        let response = await database.getUsersPosts(username)
+        response = response.rows;
+        console.log(response)
+        const data = {
+            "message": "Load successful",
+            "data": response,
+            "status_code": 200,
+        }
+        res.status(200).send(data);
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        const data = {
+            "message": "An error occurred while fetching posts.",
+            "data": null,
+            "status_code": 500
+        }
+        res.status(500).send(data);
+    }
+});
+module.exports = router;

@@ -32,6 +32,56 @@ async function createUsers(name, username, email, password, phone){
         return false;
     }
 }
+
+async function getUsersPosts(username){
+    const qry = `select p.post_msg from posts p where p.c_tag = $1;`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        // Run qry
+        const rows = await pool.query(qry, [username]);
+        // Return Rows
+        return rows
+    } catch (error) {
+        console.error("Error validating credentials:", error);
+        // Return false if an error occurs during validation
+        return false;
+    }
+}
+
+async function addPost(message){
+    const qry = `insert into posts (c_no, post_msg) values
+                (5, '${message}');`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        const response = (await pool.query(qry));
+        return response
+      }
+    catch (error) {
+        console.error("Error making post:", error);
+    }
+}
+async function getAllPosts(){
+    const qry = `select u.c_name, u.c_tag, p.post_msg from users u, posts p
+                where u.c_no = p.c_no
+                order by p.post_time asc`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        const response = (await pool.query(qry));
+        return response
+      }
+    catch (error) {
+        console.error("Error getting posts:", error);
+    }
+}
 module.exports = {
-    createUsers
+    createUsers,
+    getUsersPosts,
+    addPost,
+    getAllPosts
 }

@@ -18,9 +18,11 @@ app.listen(PORT, () => { console.log(`server listening at port ${PORT}`) });
 
 // Import route files
 const loginRoute = require('./routes/login');
-const postsRoute = require('./routes/posts');
+const userRoute = require('./routes/users');
+const postRoute = require('./routes/posts');
+
 
 // Use route files
 app.use('/', loginRoute);
-app.use('/create_account', loginRoute);
-app.use('/home', postsRoute);
+app.use('/user', userRoute);
+app.use('/home', postRoute);
