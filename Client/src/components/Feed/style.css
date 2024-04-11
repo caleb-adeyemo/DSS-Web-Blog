@@ -2,6 +2,7 @@
     width: 100%;
     color: whitesmoke;
     overflow-y: scroll;
+    border: 1px solid white;
 }
 .feed h1{
     text-align: center;

@@ -22,7 +22,7 @@ function PostForm({ dp }) {
   async function submitForm(formData){
     // Create a JSON obj of data to send
     const postData = {
-      "tweet": formData,
+      "message": formData,
     }
 
     //Make a POST request using Axios

@@ -38,7 +38,7 @@ function LoginForm() {
         });
 
         // Check to see if the data was successfully sent
-        if (response.data.success == true) {
+        if (response.data.success === true) {
             // toast the success of logining in
             toast.success(response.data.message);
             navigate('/home')

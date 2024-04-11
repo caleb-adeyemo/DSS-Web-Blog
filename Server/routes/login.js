@@ -16,13 +16,17 @@ router.post("/", async (req, res) => {
 
         if (match) {
             // User authenticated successfully
-            const user = { username: username };
+            const user = { 
+                username: username 
+            };
 
             // Generate access token
             const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN);
 
             // Set access token as HttpOnly cookie
             res.cookie('accessToken', accessToken, { httpOnly: true });
+            res.cookie('username', username, { httpOnly: true });
+
 
             // Send response with token
             res.status(200).json({

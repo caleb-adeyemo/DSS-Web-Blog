@@ -10,6 +10,18 @@
     justify-content: space-between;
 }
 
+.appMiddle h1{
+    color: white;
+    padding: 2rem;
+    font-size: 3rem;
+    font-family:'Times New Roman', Times, serif;
+    display: flex;
+    justify-content: center;
+    letter-spacing: 3px;
+    font-style: italic;
+    text-decoration: underline;
+}
+
 .form-container{
     position: absolute;
     top: 40%;

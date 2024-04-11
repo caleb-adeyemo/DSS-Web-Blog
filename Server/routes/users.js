@@ -43,14 +43,17 @@ router.post("/create_account", async (req, res) => {
 // Get Users Personal tweets
 router.get("/personal_page", authenticateToken, async (req, res) => {
     try {
-        // Decompose the req json obj
-        const username = req.body.username;
+        // GET THE USERNAME FROM THE COOKIE
+        const username = req.cookies.username;
+        console.log("Username: " + username)
+        // GET ALL THE POSTS RELATING TO THE USERNAME
         let response = await database.getUsersPosts(username)
-        response = response.rows;
-        console.log(response)
+        console.log("data: ")
+        console.log(response.rows)
+
         const data = {
             "message": "Load successful",
-            "data": response,
+            "data": response.rows,
             "status_code": 200,
         }
         res.status(200).send(data);

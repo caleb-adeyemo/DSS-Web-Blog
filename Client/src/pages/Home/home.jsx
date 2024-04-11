@@ -5,7 +5,7 @@ import './style.css'
 import Feed from '../../components/Feed/feed'
 import Nav from '../../components/SideNav/sideNav'
 import Popular from '../../components/SidePopular/popular'
-import PostForm from '../../components/Form/TweetForm/tweet';
+import PostForm from '../../components/Form/TweetForm/tweet'
 
 import post from '../../assests/Images/post.jpg'
 
@@ -36,9 +36,23 @@ function Home() {
 
   return (
     <div className='home'>
-        <Nav clickFun={toggleForm}/> {/* Render the Navigation section 'Left side of the home webpage'*/}
-        <Feed className='home-feed' posts={feedPosts}/> {/* Render the Feed section 'Middle side of the home webpage'*/}
-        <Popular/> {/* Render the Popular section 'Right side of the home webpage'*/}
+        {/* <Nav clickFun={toggleForm}/> 
+        <Feed className='home-feed' posts={feedPosts}/> 
+        <Popular/>  */}
+
+        <div className='myPage'>
+            <div className='appLeftNav'>
+                <Nav name={'Caleb'} img={post} username={"Kaleb_ade"}/> {/* Render the Navigation section 'Left side of the home webpage'*/}
+            </div>
+            <div className='appMiddle'>
+              <h1>Twitter</h1>
+                <div><PostForm dp={post}/></div>
+                <div className='myPageFeed'><Feed className='home-feed' posts={feedPosts}/></div>
+            </div>
+            <div className='appRightPopular'>
+                <Popular/> {/* Render the Popular section 'Right side of the home webpage'*/}
+            </div>
+        </div>
         {showForm && <div className='form-container'><PostForm dp={post} onClose={toggleForm} /></div> /* Render the post Form if the bool 'showForm' is true */}
     </div>
   )

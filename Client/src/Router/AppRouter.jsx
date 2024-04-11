@@ -2,8 +2,9 @@ import React, {Suspense} from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { Toaster } from "react-hot-toast";
 import Login from '../pages/Login/login'
-import Home from '../pages/Home'
+import Home from '../pages/Home/home'
 import './App.css'
+import MyPage from '../pages/MyPage/myPage';
 
 function AppRouter() {
   return (
@@ -14,6 +15,7 @@ function AppRouter() {
             <Route index={true} element={<Login/>}/>
             <Route path='/home' element={<Home/>}/>
           </Route>
+          <Route path='/myPage' element={<MyPage/>}/>
         </Routes>
         <Toaster
           position="top-right"

@@ -50,14 +50,14 @@ async function getUsersPosts(username){
     }
 }
 
-async function addPost(message){
-    const qry = `insert into posts (c_no, post_msg) values
-                (5, '${message}');`;
+async function addPost(username, message){
+    const qry = `insert into posts (c_tag, post_msg) values
+                ($1, $2);`;
 
     try {
         // Set the search path before running query
         await setSchema();
-        const response = (await pool.query(qry));
+        const response = (await pool.query(qry, [username, message]));
         return response
       }
     catch (error) {
@@ -66,7 +66,7 @@ async function addPost(message){
 }
 async function getAllPosts(){
     const qry = `select u.c_name, u.c_tag, p.post_msg from users u, posts p
-                where u.c_no = p.c_no
+                where u.c_tag = p.c_tag
                 order by p.post_time asc`;
 
     try {
