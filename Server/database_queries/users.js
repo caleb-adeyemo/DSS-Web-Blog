@@ -79,9 +79,28 @@ async function getAllPosts(){
         console.error("Error getting posts:", error);
     }
 }
+
+async function getUsersName(username){
+    const qry = `select users.c_name from users where users.c_tag=$1;`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        const { rows } = await pool.query(qry, [username]);
+        // Extract the result from the query response
+        const result = rows[0].c_name;
+        return result;
+    } catch (error) {
+        console.error("Error validating credentials:", error);
+        // Return false if an error occurs during validation
+        return "";
+    }
+}
+
 module.exports = {
     createUsers,
     getUsersPosts,
     addPost,
-    getAllPosts
+    getAllPosts,
+    getUsersName
 }

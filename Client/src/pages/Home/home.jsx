@@ -14,11 +14,21 @@ function Home() {
 
   // Fetch content from Back end
   const[feedPosts,setFeedPosts]= useState([])
+  const[name,setName]= useState('')
+  const[username,setUsername]= useState('')
+  
+
 
   const fetchFeedFromBackend = async () => {
     try {
-      const response = await axios.get('http://localhost:3001/home', {withCredentials:true});
-      setFeedPosts(response.data.data)
+      const response = await axios.get('http://localhost:3001/home', { withCredentials: true });
+    
+      // Access cookies from the response headers
+      setName(document.cookie.split('; ').find(row => row.startsWith('name=')).split('=')[1]);
+      setUsername(document.cookie.split('; ').find(row => row.startsWith('username=')).split('=')[1])
+
+      // Set the feed posts from the response data
+      setFeedPosts(response.data.data);
     } catch (error) {
       console.error('Error fetching data from backend:', error);
     }
@@ -42,10 +52,10 @@ function Home() {
 
         <div className='myPage'>
             <div className='appLeftNav'>
-                <Nav name={'Caleb'} img={post} username={"Kaleb_ade"}/> {/* Render the Navigation section 'Left side of the home webpage'*/}
+                <Nav name={name} img={post} username={username}/> {/* Render the Navigation section 'Left side of the home webpage'*/}
             </div>
             <div className='appMiddle'>
-              <h1>Twitter</h1>
+              <h1>Home</h1>
                 <div><PostForm dp={post}/></div>
                 <div className='myPageFeed'><Feed className='home-feed' posts={feedPosts}/></div>
             </div>

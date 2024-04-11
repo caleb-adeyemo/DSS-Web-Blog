@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const database = require("../database_queries/login");
+const databaseLogin = require("../database_queries/login");
+const databaseUser = require("../database_queries/users");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -11,22 +12,25 @@ router.post("/", async (req, res) => {
 
     try {
         // Authenticate user
-        const dbPassword = await database.getUsersPassword(username);
+        const dbPassword = await databaseLogin.getUsersPassword(username);
         const match = await bcrypt.compare(password, dbPassword);
 
         if (match) {
             // User authenticated successfully
             const user = { 
-                username: username 
+                username: username,
             };
 
             // Generate access token
             const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN);
+            
+            // Get user's name
+            const name  = await databaseUser.getUsersName(username)
 
             // Set access token as HttpOnly cookie
             res.cookie('accessToken', accessToken, { httpOnly: true });
-            res.cookie('username', username, { httpOnly: true });
-
+            res.cookie('username', username, { httpOnly: false });
+            res.cookie('name', name, { httpOnly: false });
 
             // Send response with token
             res.status(200).json({
