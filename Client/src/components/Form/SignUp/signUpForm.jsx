@@ -5,15 +5,15 @@ import { useNavigate } from 'react-router-dom';
 import './style.css';
 import CustomInput from '../../Inputs/customInput';
 
-function LoginForm() {
+function SignUpForm() {
   // Route to send the form data when submitted
-  const apiUrl = 'http://localhost:3001/';
+  const apiUrl = 'http://localhost:3001/user/create_account';
 
   // Navigator
   let navigate = useNavigate();
 
   const signUpNavigation = () => {
-    navigate('/create_account')
+    navigate('/')
     // toast.success('Sign Up Success');
   }
 
@@ -81,32 +81,32 @@ function LoginForm() {
 
 
   return (
-    // Entire Login Form
-    <div className='loginFormWrapper'>
+    // Entire SignUp Form
+    <div className='signUpFormWrapper'>
       {/* Left Side */}
-      <div className='loginFormLeft'>
-        <div className='loginFormLeftText'>
-          <p>Login to Your Account</p>
-        </div>
-        <div className='loginFormLeftForm'>
-          <form onSubmit={handleSubmit}>
-            <CustomInput type={'text'} placeholder={'User-name'} name={'username'} onChange={handleChange} ref={usernameInputRef}/>
-            <CustomInput type={'password'} placeholder={'Password'} name={'password'} onChange={handleChange} ref={passwordInputRef} />
-            <button id='loginFormButton' className='button' type='submit'> Login</button>
-          </form>
+      <div className='signUpFormLeft'>
+        <div className='signUpFormLeftText'>
+          <p>New Here?</p>
+          <p>Sign up and join the conversations about your favorite things!</p>
+          <button id='SignupFormButton' className='button' onClick={signUpNavigation}>Sign Up</button>
         </div>
       </div>
 
       {/* Right Side */}
-      <div className='loginFormRight'>
-        <div>
-          <p>New Here?</p>
-          <p>Sign up and join the conversations about your favorite things!</p>
-          <button id='SignupFormButton' className='button' onClick={signUpNavigation}>Sign Up</button>
+      <div className='signUpFormRight'>
+        <div className='signUpFormRightText'>
+          <p>Create Your Account</p>
+        </div>
+        <div className='signUpFormRightForm'>
+          <form onSubmit={handleSubmit}>
+            <CustomInput type={'text'} placeholder={'User-name'} name={'username'} onChange={handleChange} ref={usernameInputRef}/>
+            <CustomInput type={'password'} placeholder={'Password'} name={'password'} onChange={handleChange} ref={passwordInputRef} />
+            <button id='loginFormButton' className='button' type='submit'> Sign Up</button>
+          </form>
         </div>
       </div>
     </div>
   );
 }
 
-export default LoginForm;
+export default SignUpForm;

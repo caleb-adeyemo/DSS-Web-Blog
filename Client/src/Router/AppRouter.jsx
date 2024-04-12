@@ -5,6 +5,7 @@ import Login from '../pages/Login/login'
 import Home from '../pages/Home/home'
 import './App.css'
 import MyPage from '../pages/MyPage/myPage';
+import Signup from '../pages/Sign up/signup';
 
 function AppRouter() {
   return (
@@ -13,6 +14,7 @@ function AppRouter() {
         <Routes>
           <Route path='/'>
             <Route index={true} element={<Login/>}/>
+            <Route path='/create_account' element={<Signup/>}/>
             <Route path='/home' element={<Home/>}/>
           </Route>
           <Route path='/myPage' element={<MyPage/>}/>
