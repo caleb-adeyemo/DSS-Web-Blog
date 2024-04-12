@@ -1,0 +1,26 @@
+.myPage{
+    display: flex;
+    width: 100%;
+    height: 100vh;
+    background-color: black;
+    justify-content: space-between;
+}
+.appLeftNav{
+    width:100%;
+    height: 100vh;
+}
+.appMiddle{
+    width: 100%;
+    height: 100vh;
+    overflow-y: scroll;
+    border: 1px solid white;
+
+}
+.appRightPopular{
+    width: 100%;
+    height: 100vh;
+}
+.myPageHeader{
+    width: 100%;
+    height: 50vh;
+}

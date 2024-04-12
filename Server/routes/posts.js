@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const database = require("../database_queries/posts");
+const database = require("../database_queries/users");
+const authenticateToken = require("../Authentication/auth")
 
-router.get("/", async (req, res) => {
+
+router.get("/", authenticateToken, async (req, res) => {
     try {
         let response = await database.getAllPosts()
         response = response.rows
-        
         const data = {
             "message": "Load successful",
             "data": response,
-            "status_code": 200
+            "status_code": 200,
         }
         res.status(200).send(data);
     } catch (error) {
@@ -25,12 +26,16 @@ router.get("/", async (req, res) => {
 });
 
 
-router.post("/", async (req, res) => {
-    const message = req.body["tweet"];
-    console.log(message)
+router.post("/", authenticateToken, async (req, res) => {
+    // GET THE USERNAME FROM THE COOKIES
+    const username = req.cookies.username;
+
+    // GET THE MESSAGE FROM THE REQ BODY
+    const message = req.body["message"];
+
     try {
-        let response = await database.addPost(message)
-        response = response.rows
+        // TRY TO ADD THE TWEET TO THE DB
+        let response = await database.addPost(username, message).rows
         
         const data = {
             "message": "Load successful",
