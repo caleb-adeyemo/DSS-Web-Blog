@@ -1,22 +1,20 @@
 import React, {Suspense} from 'react'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { Toaster } from "react-hot-toast";
-import Login from '../pages/Login/login'
 import Home from '../pages/Home/home'
 import './App.css'
 import MyPage from '../pages/MyPage/myPage';
-import Signup from '../pages/Sign up/signup';
+import LoginSignUp from '../pages/Login/login';
 
 function AppRouter() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path='/'>
-            <Route index={true} element={<Login/>}/>
-            <Route path='/create_account' element={<Signup/>}/>
-            <Route path='/home' element={<Home/>}/>
+        <Route path='/'>
+            <Route index={true} element={<LoginSignUp/>}/>
           </Route>
+          <Route path='/home' element={<Home/>}/>
           <Route path='/myPage' element={<MyPage/>}/>
         </Routes>
         <Toaster

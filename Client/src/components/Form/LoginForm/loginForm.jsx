@@ -5,17 +5,12 @@ import { useNavigate } from 'react-router-dom';
 import './style.css';
 import CustomInput from '../../Inputs/customInput';
 
-function LoginForm() {
+function LoginForm({toggleForm}) {
   // Route to send the form data when submitted
   const apiUrl = 'http://localhost:3001/';
 
   // Navigator
   let navigate = useNavigate();
-
-  const signUpNavigation = () => {
-    navigate('/create_account')
-    // toast.success('Sign Up Success');
-  }
 
   // Object to store the form data
   const [formData, setFormData] = useState({
@@ -102,7 +97,8 @@ function LoginForm() {
         <div>
           <p>New Here?</p>
           <p>Sign up and join the conversations about your favorite things!</p>
-          <button id='SignupFormButton' className='button' onClick={signUpNavigation}>Sign Up</button>
+          {/* <button id='SignupFormButton' className='button' onClick={signUpNavigation}>Sign Up</button> */}
+          <button className="button" onClick={toggleForm}>Sign Up</button>
         </div>
       </div>
     </div>
