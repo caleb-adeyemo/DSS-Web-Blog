@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const database = require("../database_queries/users");
-const authenticateToken = require("../Authentication/auth")
+const tokenFunctions = require("../Authentication/auth")
 
 
-router.get("/", authenticateToken, async (req, res) => {
+router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
     try {
         let response = await database.getAllPosts()
         response = response.rows
@@ -26,7 +26,7 @@ router.get("/", authenticateToken, async (req, res) => {
 });
 
 
-router.post("/", authenticateToken, async (req, res) => {
+router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
     // GET THE USERNAME FROM THE COOKIES
     const username = req.cookies.username;
 

@@ -3,12 +3,12 @@ const router = express.Router();
 const databaseLogin = require("../database_queries/login");
 const databaseUser = require("../database_queries/users");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const tokenFunctions = require("../Authentication/auth")
+
 
 router.post("/", async (req, res) => {
     // Decompose the credentials json obj
-    const username = req.body.username;
-    const password = req.body.password;
+    const { username, password } = req.body;
 
     try {
         // Authenticate user
@@ -17,26 +17,27 @@ router.post("/", async (req, res) => {
 
         if (match) {
             // User authenticated successfully
-            const user = { 
-                username: username,
-            };
 
             // Generate access token
-            const accessToken = jwt.sign(user, process.env.ACCESS_SECRET_TOKEN);
-            
+            const accessToken = tokenFunctions.generateToken(username, 0.3);
+
+            // Generate refresh token
+            const refreshToken = tokenFunctions.generateToken(username, 0.6);
+
             // Get user's name
-            const name  = await databaseUser.getUsersName(username)
+            const name = await databaseUser.getUsersName(username);
 
             // Set access token as HttpOnly cookie
-            res.cookie('accessToken', accessToken, { httpOnly: true });
+            res.cookie('accessToken', accessToken, { httpOnly: true});
+            res.cookie('refreshToken', refreshToken, { httpOnly: true});
             res.cookie('username', username, { httpOnly: false });
             res.cookie('name', name, { httpOnly: false });
 
-            // Send response with token
+            // Send response with token in cookies
             res.status(200).json({
                 success: true,
                 message: "Authentication successful",
-                username: username // Optionally, you can send additional user info
+                name: name
             });
         } else {
             // Incorrect password

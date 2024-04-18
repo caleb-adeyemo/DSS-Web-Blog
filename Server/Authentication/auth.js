@@ -1,26 +1,71 @@
 const jwt = require('jsonwebtoken');
 
-function authenticateToken(req, res, next) {
-    // Extract the token from the cookies
-    const token = req.cookies.accessToken;
+// Function to generate access or refresh token
+function generateToken(username, expTime) {
+    const user = {
+        username: username,
+        exp: Math.floor(Date.now() / 1000) + (expTime * 60), // Expiration time in minutes
+        iat: Math.floor(Date.now() / 1000) // Issued at time
+    };
+    return jwt.sign(user, process.env.ACCESS_SECRET_TOKEN);
+}
 
-    // Check if the token exists
-    if (!token) {
+
+function authenticateToken(req, res, next) {
+    // Extract the access token and refresh token from the cookies
+    const accessToken = req.cookies.accessToken;
+    const refreshToken = req.cookies.refreshToken;
+
+    // Check if the access token exists
+    if (!accessToken) {
         return res.sendStatus(401); // Unauthorized
     }
 
-    // Verify the token
-    jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, (err, user) => {
+    // Verify the access token
+    jwt.verify(accessToken, process.env.ACCESS_SECRET_TOKEN, (err, accessTokenPayload) => {
         if (err) {
-            return res.sendStatus(403); // Forbidden
+            // Access token is expired or invalid
+            console.log("access token expired");
+
+            // Check if a refresh token exists
+            if (!refreshToken) {
+                return res.sendStatus(403); // Forbidden
+            }
+            console.log("refresh token exists");
+
+            // Verify the refresh token
+            jwt.verify(refreshToken, process.env.ACCESS_SECRET_TOKEN, (err, refreshTokenPayload) => {
+                if (err) {
+                    console.log("fuck me the refresh token is bad");
+                    return res.sendStatus(403); // Forbidden
+                }
+
+                // Refresh token is valid
+                console.log("refresh token is valid");
+
+                // Generate a new access token
+                const newAccessToken = generateToken(refreshTokenPayload.username, 0.4);
+                
+                // // Attach the user information and new access token to the request object
+                // req.cookies.accessToken = newAccessToken;
+                
+                // Set the new access token as a cookie
+                res.cookie('accessToken', newAccessToken, { httpOnly: true });
+                
+                console.log("RESET THE TOKENS!!!!!!.... IT WORKS")
+
+                // Call the next middleware in the chain
+                next();
+            });
+        } else {
+            // Access token is valid
+            // Attach the user information to the request object
+            req.user = accessTokenPayload;
+            
+            // Call the next middleware in the chain
+            next();
         }
-        
-        // // If the token is valid, attach the user information to the request object
-        // req.user = user;
-        
-        // Call the next middleware in the chain
-        next();
     });
 }
 
-module.exports = authenticateToken;
+module.exports = {generateToken, authenticateToken};
