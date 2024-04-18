@@ -1,14 +1,19 @@
 import React from 'react'
 import './style.css'
 import dp from '../../assests/Images/emoji.jpg'
+import edit from '../../assests/Svg/edit.svg'
 
-function Post({username, message, userTag, media}) {
+
+function Post({username, message, userTag, media, postToggleForm}) {
   return (
     <div className='post'>
       <div className='post_top'>
         <div className='post-header'>
           <img className='userDp' src={dp} alt='User DP'/>
           <p className='username'>{username} <span className='userTag'>{userTag}</span></p>
+          <div className='edit'>
+            <img src={edit} alt='Edit' onClick={postToggleForm}/>
+          </div>
         </div>
         
         <p className='post_message'>{message}</p>

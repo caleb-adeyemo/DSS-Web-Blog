@@ -19,10 +19,10 @@ router.post("/", async (req, res) => {
             // User authenticated successfully
 
             // Generate access token
-            const accessToken = tokenFunctions.generateToken(username, 0.3);
+            const accessToken = tokenFunctions.generateToken(username, process.env.ACCESS_TOKEN_LIFE_SPAN);
 
             // Generate refresh token
-            const refreshToken = tokenFunctions.generateToken(username, 0.6);
+            const refreshToken = tokenFunctions.generateToken(username, process.env.REFRESH_TOKEN_LIFE_SPAN);
 
             // Get user's name
             const name = await databaseUser.getUsersName(username);

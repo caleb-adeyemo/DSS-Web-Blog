@@ -9,9 +9,6 @@ function SignUpForm({toggleForm}) {
   // Route to send the form data when submitted
   const apiUrl = 'http://localhost:3001/user/create_account';
 
-  // Navigator
-  let navigate = useNavigate();
-
   // Object to store the form data
   const [formData, setFormData] = useState({
     name: '',

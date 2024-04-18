@@ -11,6 +11,8 @@ import PostForm from '../../components/Form/TweetForm/tweet'
 import post from '../../assests/Images/post.jpg'
 import emoji from '../../assests/Images/emoji.jpg'
 
+import close from '../../assests/Svg/close.svg'
+
 import './style.css'
 import Feed from '../../components/Feed/feed'
 
@@ -57,6 +59,7 @@ function MyPage() {
 
     // Function to toggle the display of the post form
     const toggleForm = () => {
+        console.log("Toggled form")
         setShowForm(!showForm);
     };
 
@@ -73,12 +76,12 @@ function MyPage() {
             <div className='appMiddle'>
                 <div className='myPageHeader'><Header name={name} noPosts='523' backImage={post} dp={emoji} username={username}/></div>
                 <div><PostForm dp={post}/></div>
-                <div className='myPageFeed'><Feed posts={feedPosts}/></div>
+                <div className='myPageFeed'><Feed posts={feedPosts} feedToggleForm={toggleForm}/></div>
             </div>
             <div className='appRightPopular'>
                 <Popular/> {/* Render the Popular section 'Right side of the home webpage'*/}
             </div>
-            {showForm && <div className='form-container'><PostForm dp={post} onClose={toggleForm} /></div>}
+            {showForm && <div className='form-container'><img className='form-container-close' src={close} alt='Close' on onClick={toggleForm}/><PostForm dp={post} onClose={toggleForm} /></div>}
         </div>
     )
 }

@@ -22,7 +22,7 @@ function Nav({clickFun, img, name, username}) {
     <div className='nav'>
       <div className='navTop'>
         <NavItem svg={home} text={'Home'} address={'/home'}/>
-        <NavItem svg={explore} text={'Explore'} address={'/home'}/>
+        <NavItem svg={explore} text={'Explore'} address={'/search'}/>
         <NavItem svg={hashTag} text={'Tags'} address={'/home'}/>
         <Button title={'Post'} clickFun={clickFun}/>
       </div>

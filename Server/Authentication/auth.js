@@ -36,7 +36,7 @@ function authenticateToken(req, res, next) {
             // Verify the refresh token
             jwt.verify(refreshToken, process.env.ACCESS_SECRET_TOKEN, (err, refreshTokenPayload) => {
                 if (err) {
-                    console.log("fuck me the refresh token is bad");
+                    console.log("Refresh token expired");
                     return res.sendStatus(403); // Forbidden
                 }
 
@@ -44,7 +44,7 @@ function authenticateToken(req, res, next) {
                 console.log("refresh token is valid");
 
                 // Generate a new access token
-                const newAccessToken = generateToken(refreshTokenPayload.username, 0.4);
+                const newAccessToken = generateToken(refreshTokenPayload.username, process.env.ACCESS_TOKEN_LIFE_SPAN);
                 
                 // // Attach the user information and new access token to the request object
                 // req.cookies.accessToken = newAccessToken;

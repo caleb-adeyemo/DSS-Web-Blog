@@ -5,20 +5,21 @@ import Home from '../pages/Home/home'
 import './App.css'
 import MyPage from '../pages/MyPage/myPage';
 import LoginSignUp from '../pages/Login/login';
+import Search from '../pages/Search/search';
 
 function AppRouter() {
   return (
     <Router>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-        <Route path='/'>
+          <Route path='/'>
             <Route index={true} element={<LoginSignUp/>}/>
           </Route>
           <Route path='/home' element={<Home/>}/>
           <Route path='/myPage' element={<MyPage/>}/>
+          <Route path='/search' element={<Search/>}/>
         </Routes>
-        <Toaster
-          position="top-right"
+        <Toaster position="top-right"
           toastOptions={{
             className: "",
             style: {
@@ -47,10 +48,7 @@ function AppRouter() {
               iconTheme: {
                 primary: "white",
                 secondary: "green",
-              },
-            },
-          }}
-        />
+                },},}}/>
       </Suspense>
     </Router>
   );
