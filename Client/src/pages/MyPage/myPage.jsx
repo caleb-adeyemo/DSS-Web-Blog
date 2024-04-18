@@ -81,7 +81,7 @@ function MyPage() {
             <div className='appRightPopular'>
                 <Popular/> {/* Render the Popular section 'Right side of the home webpage'*/}
             </div>
-            {showForm && <div className='form-container'><img className='form-container-close' src={close} alt='Close' on onClick={toggleForm}/><PostForm dp={post} onClose={toggleForm} /></div>}
+            {showForm && <div className='form-container'><img className='form-container-close' src={close} alt='Close' onClick={toggleForm}/><PostForm dp={post} /></div>}
         </div>
     )
 }
