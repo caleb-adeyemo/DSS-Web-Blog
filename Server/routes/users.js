@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const database = require("../database_queries/users");
 const bcrypt = require("bcrypt");
-const authenticateToken = require("../Authentication/auth")
+const tokenFunctions = require("../Authentication/auth")
 
 // Create Users
 router.post("/create_account", async (req, res) => {
@@ -41,15 +41,13 @@ router.post("/create_account", async (req, res) => {
 });
 
 // Get Users Personal tweets
-router.get("/personal_page", authenticateToken, async (req, res) => {
+router.get("/personal_page", tokenFunctions.authenticateToken, async (req, res) => {
     try {
         // GET THE USERNAME FROM THE COOKIE
         const username = req.cookies.username;
-        console.log("Username: " + username)
+        
         // GET ALL THE POSTS RELATING TO THE USERNAME
         let response = await database.getUsersPosts(username)
-        console.log("data: ")
-        console.log(response.rows)
 
         const data = {
             "message": "Load successful",
