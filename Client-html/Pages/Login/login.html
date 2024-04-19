@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/Login/login.css">
+</head>
+
+<body>
+
+    <!-- Entire Login Form -->
+    <div class='loginFormWrapper' id="form1">
+        <!-- Left Side -->
+        <div class='loginFormLeft'>
+            <!-- Left Text -->
+            <div class='loginFormLeftText' onclick="lifeLine()">
+                <p>Login to Your Account</p>
+            </div>
+            <!-- Left form -->
+            <div class='loginFormLeftForm'>
+                <form method= 'Post' id="login-form">
+                    <input type="text" placeholder="User-name" onChange={handleChange} value="" name="username"
+                        class="custom-input" />
+                    <input type="password" placeholder="Password" onChange={handleChange} value="" name="password"
+                        class="custom-input" />
+                    <button id='loginFormButton' class='button' type='submit'> Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class='loginFormRight'>
+            <div>
+                <p>New Here?</p>
+                <p>Sign up and join the conversations about your favorite things!</p>
+                <!-- <button id='SignupFormButton' class='button' onClick={signUpNavigation}>Sign Up</button> -->
+                <button class="button" onclick="toggleForms()">Sign Up</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Entire Sign up form-->
+    <div class='signUpFormWrapper, hidden' id="form2">
+        <!-- Left Side  -->
+        <div class='signUpFormLeft'>
+            <div class='signUpFormLeftText'>
+                <p>Already Have an Account</p>
+                <p>Login and join the conversations about your favorite things!</p>
+                    <!-- <button id='SignupFormButton' className='button' onClick={signUpNavigation}>Sign Up</button> -->
+                <button class="button" onclick="toggleForms()">Login</button>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class='signUpFormRight'>
+            <div class='signUpFormRightText'>
+                <p>Create Your Account</p>
+            </div>
+            <div class='signUpFormRightForm'>
+                <form method='post' id="signup-form">
+                    <input type='text' placeholder='Name' name='name' onChange={handleChange} class='custom-input' />
+                    <input type=' text' placeholder='Username' name='username' onChange={handleChange}
+                        class='custom-input' />
+                    <input type=' email' placeholder='john-doe@email.com' name='email' onChange={handleChange}
+                        class='custom-input' />
+                    <input type=' password' placeholder='Password' name='password' onChange={handleChange}
+                        class='custom-input' />
+                    <input type='telephone' placeholder='0000-000-0000' name='phone' onChange={handleChange}
+                        class='custom-input' />
+                    <button class=' button' type='submit'> Sign Up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="/Login/login.js"></script>
+</body>
+
+</html>

@@ -4,11 +4,21 @@ const cookieParser = require('cookie-parser'); // Cookies
 
 const app = express()
 
-// Use the cors middleware to allow requests from all origins
+// Use the cors middleware to allow requests from specific origins
+// Allow requests from multiple origins
+const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500', 'http://localhost:8000'];
 app.use(cors({
-    origin: 'http://localhost:3000', 
-    credentials: true 
+    origin: function (origin, callback) {
+        // Check if the request origin is in the allowedOrigins array
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true); // Allow the request
+        } else {
+            callback(new Error('Not allowed by CORS')); // Block the request
+        }
+    },
+    credentials: true // Allow cookies to be sent along with the request
 }));
+
 app.use(express.json())
 app.use(cookieParser());
 

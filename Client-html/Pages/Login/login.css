@@ -1,0 +1,260 @@
+/* BODY */
+*{
+    background-color: rgb(0, 0, 0);
+    color: white;
+    width: 100%;
+    margin: 0px; 
+    box-sizing: border-box;
+    font-family:'Times New Roman', Times, serif;
+
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    width: 100%;
+    height: 100vh; 
+}
+
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+input::placeholder{
+    color: whitesmoke;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* ================= Login Form ================= */
+
+.loginFormWrapper{
+    width: 60%;
+    height: 60vh;
+    border-radius: 1rem;
+    border: 4px solid whitesmoke;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.loginFormLeft{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginFormRight{
+    width: 40%;
+    height: 100%;
+    border-radius: 0rem 1rem 1rem 0rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #3aada3;
+}
+
+.loginFormLeftText{
+    width: 100%;
+    height: 40%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginFormLeftText p{
+    font-size: 2rem;
+    font-weight: 500;
+    text-decoration: underline;
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.loginFormLeftForm{
+    width: 100%;
+    height: 60%;
+    padding: 1rem;
+}
+
+.loginFormLeft form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-between;
+    padding: 1rem;
+}
+
+.loginFormRight div{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: .1rem;
+    background-color: #3aada3;
+}
+.loginFormRight div p{
+    text-align: center;
+}
+.loginFormRight div p:nth-of-type(1){
+    font-size: 3rem;
+    font-weight: 700;
+    color: black;
+    background-color: #3aada3;
+
+}
+.loginFormRight div p:nth-of-type(2){
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    background-color: #3aada3;
+}
+
+
+/* ================= Button ================= */
+
+.button{
+    background-color: rgb(58, 97, 235);
+    padding: 1rem;
+    width: 10rem;
+    height: 3.1rem;
+    border-radius: 2rem;
+    border: none;
+    color: whitesmoke;
+}
+
+.button:hover{
+    background-color:  rgb(29, 75, 240);
+    transition: 1s;
+}
+
+/* ================= Inputs ================= */
+.custom-input {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 2rem;
+    border: none;
+    outline: none;
+    background-color: rgb(147, 147, 147);
+    color: whitesmoke;
+  }
+.invalid{
+    background-color: rgb(218, 11, 11);
+    border: 1px solid white; /* Changed border property */
+}
+
+
+/* ================= Signup Form ================= */
+
+.signUpFormWrapper{
+    width: 60%;
+    height: 60vh;
+    border-radius: 1rem;
+    border: 4px solid whitesmoke;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+.signUpFormWrapper{
+    width: 60%;
+    height: 60vh;
+    border-radius: 1rem;
+    border: 4px solid whitesmoke;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.signUpFormLeft{
+    width: 40%;
+    height: 100%;
+    border-radius: 1rem 0rem 0rem 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #3aada3;
+}
+
+.signUpFormRight{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUpFormLeft div{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: .1rem;
+    background-color: #3aada3;
+}
+
+.signUpFormLeft div p {
+    text-align: center;
+}
+
+.signUpFormLeft div p:nth-of-type(1) {
+    font-size: 3rem;
+    font-weight: 700;
+    color: black;
+    background-color: #3aada3;
+}
+
+.signUpFormLeft div p:nth-of-type(2) {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    background-color: #3aada3;
+}
+
+.signUpFormRightText {
+    width: 100%;
+    height: 10%;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signUpFormRightText p {
+    font-size: 2rem;
+    font-weight: 500;
+    text-decoration: underline;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.signUpFormRightForm {
+    width: 100%;
+    height: 90%;
+    padding: 1rem;
+}
+
+.signUpFormRight form {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+

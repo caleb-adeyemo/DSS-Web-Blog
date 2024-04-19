@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="/Home/home.css">
+</head>
+<body>
+    <nav class='nav'>
+        <!-- Top Nav -->
+        <div class='navTop'>
+            <div class='nav_item' id="navHome">
+                <img src='../../Assets/SVG/home.svg' alt='svg'/>
+                <p>Home</p>
+            </div>
+            <div class='nav_item' id="navExplore">
+                <img src='../../Assets/SVG/explore.svg' alt='svg'/>
+                <p>Search</p>
+            </div>
+            <div class='nav_item' id="navTags">
+                <img src='../../Assets/SVG/hashTag.svg' alt='svg'/>
+                <p>Tags</p>
+            </div>
+            <button class="button">Post</button>
+        </div>
+
+        <!-- Bottom Nav -->
+        <div class='navBottom' onClick={callNavigate}>
+            <img src='../../Assets/Images/post.jpg' alt='dp'/>
+            <div>
+                <p>Caleb</p>
+                <p>kaleb</p>
+            </div>  
+        </div>
+    </nav>
+
+
+    <div class='comp' id="home_comp">
+        <div class='myPage'>
+            <div class='appMiddle'>
+                <h1>Home</h1>
+                <div class='feed' id='homeFeed'>
+
+                </div>
+            </div>
+        </div>
+        <!-- <div class='form-container' id='formContainer'>
+            <form className='postForm' onSubmit={handleSubmit}>
+                <div className='form_message_area'>
+                    <img className='userDp' src='../../Assets/SVG/home.svg' alt='dp' />
+                    <textarea
+                    autofocus="true"
+                    placeholder="What's Happening?!"
+                    value=""
+                    onChange={handleChange}
+                    ></textarea>
+                </div>
+                <div className='form_submit_area'>
+                    <Button class="button" id='form_submit_button'>Submit</Button>
+                </div>
+            </form>
+        </div> -->
+    </div>
+  <script src="/Home/home.js"></script>
+</body>
+</html>

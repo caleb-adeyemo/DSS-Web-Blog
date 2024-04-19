@@ -1,0 +1,109 @@
+/* BODY */
+*{
+    background-color: black;
+    color: white;
+    margin: 0px; 
+    box-sizing: border-box;
+    font-family:'Times New Roman', Times, serif;
+}
+body{
+    display: flex;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+input::placeholder{
+    color: whitesmoke;
+}
+
+/* ================= NAVBAR ================= */
+.nav{
+    width: 30%;
+    height: 100vh;
+    cursor: pointer;
+}
+
+.navTop{
+    width: 100%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items:end;
+    justify-content: space-around;
+    padding-right: 6rem;
+}
+
+.navBottom{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 6rem;
+}
+
+.navBottom img{
+    width: 20%;
+    height: 50%;
+    border-radius: 100%;
+}
+.navBottom div{
+    width: 35%;
+}
+.navBottom div :nth-child(1){
+    color: white;
+    font-size: 2rem;
+    padding-left: .5rem;
+}
+.navBottom div :nth-child(2){
+    font-size: 1rem;
+    color: grey;
+    padding-left: 1rem;
+}
+.nav_item{
+    width: 40%;
+    color: whitesmoke;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 2.5rem;
+}
+.nav_item:hover{
+    background-color: grey;
+    transition: 1s;
+}
+
+.nav_item img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.nav_item p{
+    font-size: 20px;
+}
+
+.button{
+    background-color: rgb(58, 97, 235);
+    padding: 1rem;
+    width: 10rem;
+    height: 3.1rem;
+    /* margin-right: 6rem; */
+    border-radius: 2rem;
+    border: none;
+    color: whitesmoke;
+}
+
+.button:hover{
+    background-color:  rgb(29, 75, 240);
+    transition: 1s;
+}
+
+/* ================= HOME ================= */
+.comp{
+    width: 40%;
+    height: 100vh;
+    background-color: antiquewhite;
+}
