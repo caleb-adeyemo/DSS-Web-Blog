@@ -13,7 +13,7 @@ async function setSchema() {
 
 
 async function getPostsWithWord(word){
-    const qry = `select u.c_name, u.c_tag, p.post_msg from users u, posts p WHERE u.c_tag = p.c_tag and 
+    const qry = `select u.c_name, u.c_tag, p.post_id, p.post_msg from users u, posts p WHERE u.c_tag = p.c_tag and 
                 p.post_msg LIKE $1;`;
 
     try {

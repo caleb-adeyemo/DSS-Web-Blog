@@ -6,7 +6,7 @@ import './style.css';
 import Feed from '../../components/Feed/feed'; // Import Feed component
 import Nav from '../../components/SideNav/sideNav'; // Import Nav component
 import Popular from '../../components/SidePopular/popular'; // Import Popular component
-import PostForm from '../../components/Form/TweetForm/tweet'; // Import PostForm component
+import PostForm from '../../components/Form/PostForm/postForm'; // Import PostForm component
 
 import post from '../../assests/Images/post.jpg'; // Import post image
 import toast from 'react-hot-toast'; // Import toast for notifications
@@ -68,18 +68,15 @@ function Home() {
         </div>
         <div className='appMiddle'>
           <h1>Home</h1>
-          <div>
-            <PostForm dp={post} />
-          </div>
           <div className='myPageFeed'>
-            <Feed className='home-feed' posts={feedPosts} />
+            <Feed posts={feedPosts} showEdit={false}/>
           </div>
         </div>
         <div className='appRightPopular'>
           <Popular />
         </div>
       </div>
-      {showForm && <div className='form-container'><PostForm dp={post} onClose={toggleForm} /></div>}
+      {showForm && <div className='form-container'><PostForm dp={post} /></div>}
     </div>
   );
 }

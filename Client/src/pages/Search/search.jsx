@@ -4,7 +4,7 @@ import './style.css';
 import SearchBar from '../../components/SearchBar/searchBar'; // Import SearchBar component
 import Nav from '../../components/SideNav/sideNav'; // Import Nav component
 import Popular from '../../components/SidePopular/popular'; // Import Popular component
-import PostForm from '../../components/Form/TweetForm/tweet'; // Import PostForm component
+import PostForm from '../../components/Form/PostForm/postForm'; // Import PostForm component
 
 import post from '../../assests/Images/post.jpg'; // Import post image
 import Feed from '../../components/Feed/feed';
@@ -47,7 +47,7 @@ function Search() {
             <Popular />
             </div>
         </div>
-        {showForm && <div className='form-container'><PostForm dp={post} onClose={toggleForm} /></div>}
+        {showForm && <div className='form-container'><PostForm dp={post}/></div>}
         </div>
     );
 }
