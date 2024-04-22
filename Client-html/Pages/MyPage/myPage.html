@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" href="/Home/home.css">
+  <link rel="stylesheet" href="/MyPage/myPage.css">
 </head>
 <body>
     <!-- ============================ NAV BAR =============================== -->
@@ -40,7 +40,7 @@
     <div class='comp' id="home_comp">
         <div class='myPage'>
             <div class='appMiddle'>
-                <h1>Home</h1>
+                <h1>Personal Page</h1>
                 <div class='feed' id='homeFeed'>
 
                 </div>
@@ -48,13 +48,14 @@
         </div>
     </div>
 
-    <!-- ============================ POP UP FORM =============================== -->
-    <div class='form-container' id='formContainer'>
+     <!-- ============================ POP UP FORM =============================== -->
+     <div class='form-container' id='formContainer'>
         <img id='form-container-close' src=../../Assets/SVG/close.svg alt='Close'/>
         <form class='postForm' onSubmit={handleSubmit}>
             <div class='form_message_area'>
                 <img class='userDp' src='../../Assets/SVG/message.svg' alt='dp' />
                 <textarea
+                id="form_text_area"
                 autofocus="true"
                 placeholder="What's Happening?!"
                 value=""
@@ -67,7 +68,7 @@
     </div>
 
     <!-- ============================ SCRIPT =============================== -->
-  <script src="/Home/home.js"></script>
+  <script src="/MyPage/myPage.js"></script>
 
 </body>
 </html>

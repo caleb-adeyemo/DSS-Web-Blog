@@ -189,7 +189,7 @@ text-align: center; /* Optional: Center the text horizontally */
 }
 
 /* =========================== Form POP UP ====================== */
-#formContainer{
+.form-container{
     position: absolute;
     top: 40%;
     left: 50%;

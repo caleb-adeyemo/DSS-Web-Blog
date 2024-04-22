@@ -57,6 +57,15 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'Pages', 'Home', 'home.html'));
 });
 
+app.get('/myPage', (req, res) => {
+  // Send the index.html file from the 'Login' directory
+  res.sendFile(path.join(__dirname, 'Pages', 'MyPage', 'myPage.html'));
+});
+app.get('/search', (req, res) => {
+  // Send the index.html file from the 'Login' directory
+  res.sendFile(path.join(__dirname, 'Pages', 'Search', 'search.html'));
+});
+
 // Start the server
 const PORT = 8000;
 app.listen(PORT, () => {

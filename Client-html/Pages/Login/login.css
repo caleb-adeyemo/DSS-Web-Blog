@@ -164,16 +164,7 @@ input::placeholder{
     border-radius: 1rem;
     border: 4px solid whitesmoke;
     padding: 1rem;
-    display: flex;
-    flex-direction: row;
-}
-.signUpFormWrapper{
-    width: 60%;
-    height: 60vh;
-    border-radius: 1rem;
-    border: 4px solid whitesmoke;
-    padding: 1rem;
-    display: flex;
+    display: none;
     flex-direction: row;
 }
 

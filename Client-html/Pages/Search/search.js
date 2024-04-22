@@ -2,6 +2,9 @@
 
 const navName = document.getElementById('navName'); // Add User's name
 const navTag = document.getElementById('navTag'); // Add users tag
+const search_input = document.getElementById('search_input'); // Search input
+const search_img = document.getElementById('search_img'); // Search input
+
 
 
 
@@ -61,14 +64,12 @@ const renderFeedPosts = (posts) => {
 // Function to fetch feed data from backend
 const fetchFeedData = async () => {
   try {
-    const response = await fetch('http://localhost:3001/home', { credentials: 'include' });
+    const response = await fetch('http://localhost:3001/search', { credentials: 'include' });
     if (response.ok) {
       const data = await response.json();
       renderFeedPosts(data.data);
 
-      // Extract name and username from cookies
-      navName.innerHTML = (document.cookie.split('; ').find(row => row.startsWith('name=')).split('=')[1]);
-      navTag.innerHTML = (document.cookie.split('; ').find(row => row.startsWith('username=')).split('=')[1]);
+      
     } else {
       throw new Error('Failed to fetch data');
     }
@@ -79,21 +80,23 @@ const fetchFeedData = async () => {
 
 // Fetch feed data on page load
 window.onload = () => {
-  fetchFeedData();
+  // Extract name and username from cookies
+  navName.innerHTML = (document.cookie.split('; ').find(row => row.startsWith('name=')).split('=')[1]);
+  navTag.innerHTML = (document.cookie.split('; ').find(row => row.startsWith('username=')).split('=')[1]);
 };
 
 
 // ============================ UNIVERSAL FUNCTIONS ===============================
 
 // Function to handle form submission
-const handleSubmit = async (event) => {
-  event.preventDefault();
-  const formData = new FormData(event.target);
-  const message = formData.get('message');
+const handleSubmit = async () => {
+
+  const message = {value: search_input.value}
+  console.log(JSON.stringify(message))
 
   try {
-    const response = await fetch('http://localhost:3001/home', {
-      method: 'POST',
+    const response = await fetch('http://localhost:3001/search', {
+      method: 'Post',
       body: JSON.stringify({ message }),
       headers: {
         'Content-Type': 'application/json',
@@ -102,7 +105,7 @@ const handleSubmit = async (event) => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data.message);
+      console.log(data);
     } else {
       throw new Error('Failed to submit form');
     }
@@ -110,3 +113,5 @@ const handleSubmit = async (event) => {
     console.error('Error submitting form:', error.message);
   }
 };
+// Add event listener
+search_img.addEventListener('click', ()=> handleSubmit())

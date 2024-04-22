@@ -11,14 +11,15 @@ function toggleForms() {
     var form1 = document.getElementById('form1');
     var form2 = document.getElementById('form2');
 
-    if (form1.classList.contains('hidden')) {
-        form1.classList.remove('hidden');
-        form2.classList.add('hidden');
+    if (form1.style.display === 'none') {
+        form1.style.display = 'flex';
+        form2.style.display = 'none';
     } else {
-        form2.classList.remove('hidden');
-        form1.classList.add('hidden');
+        form1.style.display = 'none';
+        form2.style.display = 'flex';
     }
 }
+
 
 // Function to handle form submission
 async function handleSubmit(e) {
@@ -59,7 +60,3 @@ async function handleSubmit(e) {
 const navigate = (address) => {
   window.location.href = address;
 };
-
-function lifeLine(){
-    console.log("Working")
-}

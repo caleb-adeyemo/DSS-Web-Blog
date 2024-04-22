@@ -59,7 +59,6 @@ function SearchBar({func}) {
 
   return (
     <div className="search-bar">
-      <div></div>
       <input type="text" placeholder="Search..." value={searchTerm.value} onChange={handleInputChange}/>
       <img src={searchIcon} alt="Search" onClick={handleSearchClick}/>
     </div>
