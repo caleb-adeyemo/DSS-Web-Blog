@@ -5,9 +5,7 @@ const tokenFunctions = require("../Authentication/auth")
 
 router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
     // GET THE MESSAGE FROM THE REQ BODY
-    const searchValue = req.body["gg"];
-
-    console.log("Search Value: " + searchValue)
+    const searchValue = req.body["value"];
 
     try {
         // TRY TO GET POST CONTAINING SEARCH WORD

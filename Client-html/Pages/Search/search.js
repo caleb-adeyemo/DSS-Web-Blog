@@ -97,7 +97,7 @@ const handleSubmit = async () => {
   try {
     const response = await fetch('http://localhost:3001/search', {
       method: 'Post',
-      body: JSON.stringify({ message }),
+      body: JSON.stringify(message),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -105,7 +105,7 @@ const handleSubmit = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
+      renderFeedPosts(data.data)
     } else {
       throw new Error('Failed to submit form');
     }
