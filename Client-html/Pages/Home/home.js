@@ -84,28 +84,46 @@ window.onload = () => {
 
 
 // ============================ UNIVERSAL FUNCTIONS ===============================
-
 // Function to handle form submission
 const handleSubmit = async (event) => {
-  event.preventDefault();
+  event.preventDefault(); // Prevent default form submission behavior
   const formData = new FormData(event.target);
-  const message = formData.get('message');
+  const message = formData.get('form_text_area'); // Get the 'form_text_area' message
+
+  console.log(message)
+  // Varaibles
+  let response = null;
+
+  // Try to send the data
   try {
-    const response = await fetch('http://localhost:3001/home', {
+    let url = ['http://localhost:3001/home'];
+    response =await fetch(url[0], {
       method: 'POST',
-      body: JSON.stringify({ message }),
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify({ message }),
       credentials: 'include',
-    });
+    })
+    // If the tweet sucessfully sent; debug success message
     if (response.ok) {
       const data = await response.json();
       console.log(data.message);
-    } else {
+      toggleForm(); // Remove the form
+      location.reload(); // Reload the page to see the updates
+
+    } else { // error log failed message
+      console.error(response.Error)
       throw new Error('Failed to submit form');
     }
   } catch (error) {
     console.error('Error submitting form:', error.message);
   }
 };
+
+
+// Add event listener for form submission
+document.getElementById('postForm').addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent default form submission behavior
+  handleSubmit(event); // Call handleSubmit function with the event
+});

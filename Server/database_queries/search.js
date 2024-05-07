@@ -12,23 +12,23 @@ async function setSchema() {
 }
 
 
-async function getPostsWithWord(word){
-    const qry = `select u.c_name, u.c_tag, p.post_id, p.post_msg from users u, posts p WHERE u.c_tag = p.c_tag and 
-                p.post_msg LIKE $1;`;
-
+async function getPostsWithWord(word) {
+    const qry = `SELECT u.c_name, u.c_tag, p.post_id, p.post_msg FROM users u, posts p 
+                 WHERE u.c_tag = p.c_tag AND p.post_msg ILIKE $1;`;
+  
     try {
-        // Set the search path before running query
-        await setSchema();
-        // Run qry
-        const rows = await pool.query(qry, [`%${word}%`]);
-        // Return Rows
-        return rows.rows
+      // Set the search path before running query
+      await setSchema();
+      // Run query
+      const rows = await pool.query(qry, [`%${word}%`]);
+      // Return Rows
+      return rows.rows;
     } catch (error) {
-        console.error("Error retriving posts:", error);
-        // Return false if an error occurs during validation
-        return false;
+      console.error("Error retrieving posts:", error);
+      // Return false if an error occurs during retrieval
+      return false;
     }
-}
+  }
 
 module.exports = {
     getPostsWithWord

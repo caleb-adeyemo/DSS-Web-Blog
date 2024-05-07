@@ -87,9 +87,52 @@ window.onload = () => {
 
 
 // ============================ UNIVERSAL FUNCTIONS ===============================
+// Function to handle form submission
+const handleSubmit = async (event) => {
+  event.preventDefault(); // Prevent default form submission behavior
+  const formData = new FormData(event.target);
+  const message = formData.get('form_text_area'); // Get the 'form_text_area' message
+
+  console.log(message)
+  // Varaibles
+  let response = null;
+
+  // Try to send the data
+  try {
+    let url = ['http://localhost:3001/home'];
+    response =await fetch(url[0], {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message }),
+      credentials: 'include',
+    })
+    // If the tweet sucessfully sent; debug success message
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data.message);
+      toggleForm(); // Remove the form
+      location.reload(); // Reload the page to see the updates
+
+    } else { // error log failed message
+      console.error(response.Error)
+      throw new Error('Failed to submit form');
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error.message);
+  }
+};
+
+
+// Add event listener for form submission
+document.getElementById('postForm').addEventListener('submit', (event) => {
+  event.preventDefault(); // Prevent default form submission behavior
+  handleSubmit(event); // Call handleSubmit function with the event
+});
 
 // Function to handle form submission
-const handleSubmit = async () => {
+const handleSearch = async () => {
 
   const message = {value: search_input.value}
   console.log(JSON.stringify(message))
@@ -105,6 +148,7 @@ const handleSubmit = async () => {
     });
     if (response.ok) {
       const data = await response.json();
+      console.log(data)
       renderFeedPosts(data.data)
     } else {
       throw new Error('Failed to submit form');
@@ -114,4 +158,4 @@ const handleSubmit = async () => {
   }
 };
 // Add event listener
-search_img.addEventListener('click', ()=> handleSubmit())
+search_img.addEventListener('click', ()=> handleSearch())
