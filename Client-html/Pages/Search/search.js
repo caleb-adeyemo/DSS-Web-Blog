@@ -105,6 +105,7 @@ const handleSubmit = async () => {
     });
     if (response.ok) {
       const data = await response.json();
+      console.log(data)
       renderFeedPosts(data.data)
     } else {
       throw new Error('Failed to submit form');

@@ -5,13 +5,15 @@ const tokenFunctions = require("../Authentication/auth")
 
 router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
     // GET THE MESSAGE FROM THE REQ BODY
-    const searchValue = req.body["value"];
+    const searchValue = req.body["value"]
 
+    // Debug
+    console.log("searchValue: " + searchValue)
     try {
         // TRY TO GET POST CONTAINING SEARCH WORD
         let response = await database.getPostsWithWord(searchValue)
         const data = {
-            "message": "Load successful",
+            "message": "Search successful",
             "data": response,
             "success": true
         }

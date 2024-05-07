@@ -54,7 +54,10 @@
     <!-- ============================ POP UP FORM =============================== -->
     <div class='form-container' id='formContainer'>
         <img id='form-container-close' src=../../Assets/SVG/close.svg alt='Close'/>
-        <form class='postForm' onSubmit={handleSubmit}>
+        <form id = 'postForm'class='postForm'>
+            <!-- Hidden input field to store post_id for editing -->
+            <input type="hidden" id="post_id" name="post_id" value="">
+            <!-- Text area to store the messges from the backend -->
             <div class='form_message_area'>
                 <img class='userDp' src='../../Assets/SVG/message.svg' alt='dp' />
                 <textarea
