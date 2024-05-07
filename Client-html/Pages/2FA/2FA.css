@@ -1,0 +1,74 @@
+/* BODY */
+body {
+    display: flex;
+    justify-content: center; /* Centers the child horizontally */
+    align-items: center; /* Centers the child vertically */
+    min-height: 100vh; /* Makes the body take the full height of the viewport */
+    margin: 0; 
+    background-color: #4070f4;
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+#QrCodeContainer {
+    width: 50%; /* Makes the div 50% of the viewport width */
+    height: auto; /* Adjust height as needed */
+    /* background-color: red; */
+}
+:where(.container, form, .input_field){
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    background: #fff;
+    padding: 30px 65px;
+    border-radius: 12px;
+    row-gap: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.container h4{
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 500;
+}
+form .input_field{
+    flex-direction: row;
+    column-gap: 10px;
+}
+.input_field input{
+    height: 45px;
+    width: 42px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 1.2rem;
+}
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+form button{
+    margin-top: 25px;
+    width: 100%;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    padding: 10px 0;
+    border-radius: 6px;
+    cursor: pointer;
+    background-color: #6e93f7;
+    transition: all 0.2s ease-in;
+}
+
+form button:hover{
+    background-color: #0e4bf1;
+}
+
+img{
+    width: 50%;
+    height: 50%;
+}

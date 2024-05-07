@@ -40,7 +40,7 @@ async function handleLogin(e) {
         });
 
         // Send form data to the server
-        const response = await fetch('http://localhost:3001/', {
+        let response = await fetch('http://localhost:3001/', {
             method: 'Post',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,10 +48,10 @@ async function handleLogin(e) {
             body: JSON.stringify(formDataObject),
             credentials: 'include'
         });
-        if(response.ok){
-            navigate('/home')
+        const {message, name, qrCodeImageDataUrl, success} = await response.json();
+        if(success){
+            navigate('/2fa')
         }
-        console.log(response);
     } catch (error) {
         // Log and handle any errors that occur
         console.error('There was a problem with the form submission:', error);

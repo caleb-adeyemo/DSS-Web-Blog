@@ -1,10 +1,12 @@
+// Import necessary modules
 const express = require('express');
 const router = express.Router();
 const databaseLogin = require("../database_queries/login");
 const databaseUser = require("../database_queries/users");
 const bcrypt = require("bcrypt");
-const tokenFunctions = require("../Authentication/auth")
-
+const tokenFunctions = require("../Authentication/auth");
+const {authenticator} = require('otplib');
+const qrCode = require('qrcode');
 
 router.post("/", async (req, res) => {
     // Decompose the credentials json obj
@@ -27,17 +29,30 @@ router.post("/", async (req, res) => {
             // Get user's name
             const name = await databaseUser.getUsersName(username);
 
+            // Generate secret key for user
+            const secret = authenticator.generateSecret();
+
+            // Store secret key in the database
+            // (You need to implement this part)
+
+            // Generate OTP URL
+            const otpUrl = authenticator.keyuri(username, 'logger', secret);
+
+            // Generate QR code image
+            const qrCodeImageDataUrl = await qrCode.toDataURL(otpUrl);
+
             // Set access token as HttpOnly cookie
             res.cookie('accessToken', accessToken, { httpOnly: true});
             res.cookie('refreshToken', refreshToken, { httpOnly: true});
             res.cookie('username', username, { httpOnly: false });
             res.cookie('name', name, { httpOnly: false });
+            res.cookie('qrCodeImageDataUrl', qrCodeImageDataUrl, { httpOnly: false});
 
-            // Send response with token in cookies
+            // Send response with token in cookies and QR code image
             res.status(200).json({
                 success: true,
                 message: "Authentication successful",
-                name: name
+                name: name,
             });
         } else {
             // Incorrect password
