@@ -97,4 +97,35 @@ router.post("/edit", tokenFunctions.authenticateToken, async (req, res) => {
         res.status(500).send(data);
     }
 });
+
+// Delete Users Personal tweets
+router.post("/deletePost", tokenFunctions.authenticateToken, async (req, res) => {
+    // Debug
+    console.log("It went to the delete route!!!")
+    console.log(req.body)
+    
+    try {
+        // GET THE Post ID FROM THE req
+        const postID = req.body.post_id;
+        
+        // GET ALL THE POSTS RELATING TO THE USERNAME
+        let response = await database.deletePost(postID)
+
+        console.log(response)
+        const data = {
+            "message": "Delete successful",
+            "data": response,
+            "status_code": 200,
+        }
+        res.status(200).send(data);
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        const data = {
+            "message": "An error occurred while fetching posts.",
+            "data": response,
+            "status_code": 500
+        }
+        res.status(500).send(data);
+    }
+});
 module.exports = router;

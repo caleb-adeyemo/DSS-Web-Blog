@@ -109,11 +109,25 @@ async function editPost(post_id, message) {
     return true
   }
 
+  async function deletePost(post_id) {
+    const qry = `DELETE FROM posts WHERE post_id = $1;`;
+  
+    try {
+      await setSchema();
+      await pool.query(qry, [post_id]);
+      return true; // Return true if deletion is successful
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      return false; // Return false if an error occurs during deletion
+    }
+  }
+
 module.exports = {
     createUsers,
     getUsersPosts,
     addPost,
     getAllPosts,
     getUsersName,
-    editPost
+    editPost,
+    deletePost
 }

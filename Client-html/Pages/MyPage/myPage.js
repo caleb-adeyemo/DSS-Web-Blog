@@ -85,8 +85,9 @@ const handleEditClick = (post_id, message) => {
 const handleDeleteClick = (post_id) => {
   // Store post_id in a hidden input field
   document.getElementById('post_id').value = post_id;
-  console.log(post_id)
-  
+  console.log(post_id);
+  // Delete the post 
+  handleDelete(post_id);
 };
 
 // Function to fetch feed data from backend
@@ -187,7 +188,7 @@ document.getElementById('postForm').addEventListener('submit', (event) => {
   handleSubmit(event); // Call handleSubmit function with the event
 });
 
-// Function to handle form submission
+// Function to handle deleting posts
 const handleDelete = async (post_id) => {
   // Try to send the data
   try {
