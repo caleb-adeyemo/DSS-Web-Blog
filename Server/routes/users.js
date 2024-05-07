@@ -23,7 +23,6 @@ router.post("/create_account", async (req, res) => {
 
         // Bool 'success' if user was successfully added to hte data base
         const success = await database.createUsers(name, username, email, hPassword, phone);
-
         if (success) {
             res.status(200).json({"msg": "User successfully Created", "success": success});
         } else {

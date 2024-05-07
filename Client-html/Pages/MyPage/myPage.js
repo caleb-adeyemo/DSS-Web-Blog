@@ -146,7 +146,7 @@ const handleSearch = async (event) => {
   try {
     let url = ['http://localhost:3001/home', 'http://localhost:3001/user/edit'];
     if (post_id){
-      response =await fetch(url[1], {
+      response = await fetch(url[1], {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
