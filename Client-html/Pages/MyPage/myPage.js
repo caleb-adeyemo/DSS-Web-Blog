@@ -132,7 +132,7 @@ window.onload = () => {
 
 // ============================ UNIVERSAL FUNCTIONS ===============================
 // Function to handle form submission
-const handleSubmit = async (event) => {
+const handleSearch = async (event) => {
   event.preventDefault(); // Prevent default form submission behavior
   const formData = new FormData(event.target);
   const message = formData.get('form_text_area'); // Get the 'form_text_area' message
@@ -185,7 +185,7 @@ const handleSubmit = async (event) => {
 // Add event listener for form submission
 document.getElementById('postForm').addEventListener('submit', (event) => {
   event.preventDefault(); // Prevent default form submission behavior
-  handleSubmit(event); // Call handleSubmit function with the event
+  handleSearch(event); // Call handleSubmit function with the event
 });
 
 // Function to handle deleting posts
