@@ -3,6 +3,8 @@ const router = express.Router();
 const database = require("../database_queries/users");
 const bcrypt = require("bcrypt");
 const tokenFunctions = require("../Authentication/auth")
+const {authenticator} = require('otplib');
+
 
 // Create Users
 router.post("/create_account", async (req, res) => {
@@ -25,6 +27,11 @@ router.post("/create_account", async (req, res) => {
         const success = await database.createUsers(name, username, email, hPassword, phone);
         if (success) {
             res.status(200).json({"msg": "User successfully Created", "success": success});
+            // Generate secret key for user; for OTP
+            const secret = authenticator.generateSecret();
+
+            // Store secret in the DB
+            await database.storeSecret(username, secret);
         } else {
             res.status(200).json({"msg": "An Error occured, User not created"});
         }

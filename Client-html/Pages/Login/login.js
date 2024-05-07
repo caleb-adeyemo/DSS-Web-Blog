@@ -48,7 +48,7 @@ async function handleLogin(e) {
             body: JSON.stringify(formDataObject),
             credentials: 'include'
         });
-        const {message, name, qrCodeImageDataUrl, success} = await response.json();
+        const {success} = await response.json();
         if(success){
             navigate('/2fa')
         }

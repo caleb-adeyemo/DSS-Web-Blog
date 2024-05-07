@@ -33,6 +33,45 @@ async function createUsers(name, username, email, password, phone){
     }
 }
 
+async function storeSecret(username, secret) {
+    const qry = `
+    UPDATE users 
+    SET c_secret_key_otp = $2
+    WHERE c_tag = $1;`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        const rows = await pool.query(qry, [username, secret]);
+        // Return Bool if update was successful or not
+        return rows.rowCount > 0; // Returns true if at least one row was updated
+    } catch (error) {
+        console.error("Error storing secret key:", error);
+        // Return false if an error occurs
+        return false;
+    }
+}
+
+async function getUsersSecret(username){
+    const qry = `
+    select users.c_secret_key_otp
+    from users
+    WHERE users.c_tag = $1;`;
+
+    try {
+        // Set the search path before running query
+        await setSchema();
+        // Run qry
+        const {rows} = await pool.query(qry, [username]);
+        // Return Rows
+        return rows[0].c_secret_key_otp
+    } catch (error) {
+        console.error("Error validating credentials:", error);
+        // Return false if an error occurs during validation
+        return false;
+    }
+}
+
 async function getUsersPosts(username){
     const qry = `select p.post_id, p.post_msg from posts p where p.c_tag = $1;`;
 
@@ -124,6 +163,8 @@ async function editPost(post_id, message) {
 
 module.exports = {
     createUsers,
+    storeSecret,
+    getUsersSecret,
     getUsersPosts,
     addPost,
     getAllPosts,

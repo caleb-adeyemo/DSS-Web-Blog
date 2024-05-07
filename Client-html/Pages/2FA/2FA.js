@@ -1,3 +1,8 @@
+// Function to navigate to a specific address
+const navigate = (address) => {
+    window.location.href = address;
+};
+
 // Get the cookies and put em in an object
 let cookeObj = document.cookie.split(';').map(cookie => cookie.split('=')).reduce((accumulator, [key,value]) =>({...accumulator, [key.trim()]: decodeURIComponent(value)}),{});
 
@@ -6,7 +11,7 @@ document.getElementById("qrcode").src = cookeObj.qrCodeImageDataUrl
 
 // On page load
 window.onload = () => {
-    
+
     const inputs = document.querySelectorAll('input[type="number"]');
     
     inputs.forEach((input, index) => {
@@ -20,3 +25,46 @@ window.onload = () => {
     // Focus on the first input field
     inputs[0].focus();
 };
+
+// Function to handle form submission
+const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission behavior
+    
+    // Get the OTP values from the form inputs
+    const otpInputs = document.querySelectorAll('.input_field input[type="number"]');
+    let otp = '';
+    otpInputs.forEach(input => {
+      otp += input.value;
+    });
+  
+    // Varaibles
+    let response = null;
+  
+    // Try to send the data
+    try {
+      response = await fetch('http://localhost:3001/Auth/Qrcode', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ otp }),
+        credentials: 'include',
+      });
+
+      const {success, message} = await response.json();
+      // If the request is successful
+      if (success) {
+         // Log the response data
+        console.log(message);
+        // Navigate to home
+        navigate("/home")
+      } else {
+        console.error('Failed to submit form:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error.message);
+    }
+  };
+
+// Add event listener to the form
+const form = document.querySelector('form').addEventListener('submit', handleSubmit);
