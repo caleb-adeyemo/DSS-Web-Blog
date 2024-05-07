@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 
 const PORT = 3001;
-app.listen(PORT, () => { console.log(`server listening at port ${PORT}`) });
+app.listen(PORT, () => { console.log(`server listening at port ${PORT}`) }); // Starts actuall server
 
 // Import route files
 const loginRoute = require('./routes/login');

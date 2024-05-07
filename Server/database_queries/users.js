@@ -34,7 +34,7 @@ async function createUsers(name, username, email, password, phone){
 }
 
 async function getUsersPosts(username){
-    const qry = `select p.post_msg from posts p where p.c_tag = $1;`;
+    const qry = `select p.post_id, p.post_msg from posts p where p.c_tag = $1;`;
 
     try {
         // Set the search path before running query
@@ -96,11 +96,24 @@ async function getUsersName(username){
         return "";
     }
 }
+async function editPost(post_id, message) {
+    const qry = `UPDATE posts SET post_msg = $2 WHERE post_id = $1;`;
+  
+    try {
+      await setSchema();
+      await pool.query(qry, [post_id, message]);
+    } catch (error) {
+      console.error("Error editing post:", error);
+      return false
+    }
+    return true
+  }
 
 module.exports = {
     createUsers,
     getUsersPosts,
     addPost,
     getAllPosts,
-    getUsersName
+    getUsersName,
+    editPost
 }

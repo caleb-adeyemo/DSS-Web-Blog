@@ -51,19 +51,16 @@
     <!-- ============================ POP UP FORM =============================== -->
     <div class='form-container' id='formContainer'>
         <img id='form-container-close' src=../../Assets/SVG/close.svg alt='Close'/>
-        <form class='postForm' onSubmit={handleSubmit}>
+        <form id="post_form" class='postForm'>
             <div class='form_message_area'>
                 <img class='userDp' src='../../Assets/SVG/message.svg' alt='dp' />
-                <textarea
-                autofocus="true"
-                placeholder="What's Happening?!"
-                value=""
-                ></textarea>
+                <textarea autofocus="true" placeholder="What's Happening?!"></textarea>
             </div>
             <div class='form_submit_area'>
-                <Button class="button" id='form_submit_button'>Submit</Button>
+                <button class="button" id='form_submit_button' type="submit">Submit</button>
             </div>
         </form>
+        
     </div>
 
     <!-- ============================ SCRIPT =============================== -->

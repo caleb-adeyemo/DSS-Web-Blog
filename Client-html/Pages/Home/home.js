@@ -90,7 +90,6 @@ const handleSubmit = async (event) => {
   event.preventDefault();
   const formData = new FormData(event.target);
   const message = formData.get('message');
-
   try {
     const response = await fetch('http://localhost:3001/home', {
       method: 'POST',

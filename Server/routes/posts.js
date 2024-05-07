@@ -27,6 +27,10 @@ router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
 
 
 router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
+    // Debug
+    console.log("It went to the Add New Post route!!!")
+    console.log(req.body)
+
     // GET THE USERNAME FROM THE COOKIES
     const username = req.cookies.username;
 
