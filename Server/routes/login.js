@@ -36,11 +36,10 @@ router.post("/", async (req, res) => {
             // Send response with token in cookies and QR code image
             res.status(200).json({
                 success: true,
-                message: "Authentication successful",
             });
         } else {
             // Incorrect password
-            res.status(401).json({ success: false, message: "Incorrect username or password" });
+            res.status(200).json({ success: false, message: "Credential Error: Incorrect username and/or password" });
         }
     } catch (error) {
         console.error("Error validating credentials:", error);
@@ -86,8 +85,8 @@ router.post("/Auth/Qrcode", tokenFunctions.authenticateToken, async (req, res) =
                 message: "Authentication successful",
             });
         } else {
-            // Incorrect password
-            res.status(401).json({ success: false, message: "Incorrect username or password" });
+            // OTP is invalid
+            res.status(401).json({ success: false, message: "Invalid OTP" });
         }
     } catch (error) {
         console.error("Error validating credentials:", error);

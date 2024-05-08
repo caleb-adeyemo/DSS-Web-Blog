@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const database = require("../database_queries/users");
 const tokenFunctions = require("../Authentication/auth")
+const validator = require("../Validation/validate")
 
 
 router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
@@ -27,32 +28,40 @@ router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
 
 
 router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
-    // Debug
-    console.log("It went to the Add New Post route!!!")
-    console.log(req.body)
 
     // GET THE USERNAME FROM THE COOKIES
     const username = req.cookies.username;
 
     // GET THE MESSAGE FROM THE REQ BODY
-    const message = req.body["message"];
+    const message = req.body["postMessage"];
+
+    // Validate and sanitize the message input
+    const sanitizedMessage = validator.sanitizeMessage(message);
+
+    // Return Null if the message exeeds 280 characters and remove special characters
+    if (!sanitizedMessage) {
+        const data = {
+            "message": "Invalid message format",
+            "success": false
+        };
+        return res.status(200).send(data);
+    }
 
     try {
         // TRY TO ADD THE TWEET TO THE DB
-        let response = await database.addPost(username, message).rows
+        let response = await database.addPost(username, sanitizedMessage).rows
         
         const data = {
             "message": "Load successful",
             "data": response,
-            "status_code": 200
+            "success": true
         }
         res.status(200).send(data);
     } catch (error) {
         console.error("Error Adding post:", error);
         const data = {
             "message": "An error occurred while adding post.",
-            "data": null,
-            "status_code": 500
+            "success": false
         }
         res.status(500).send(data);
     }

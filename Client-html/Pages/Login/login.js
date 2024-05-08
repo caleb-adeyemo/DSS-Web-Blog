@@ -1,5 +1,7 @@
 // login.js
 
+const { json } = require("express");
+
 // Function to navigate to a specific address
 const navigate = (address) => {
     window.location.href = address;
@@ -33,11 +35,13 @@ async function handleLogin(e) {
         // Get the form data directly from the event target
         const formData = new FormData(e.target);
 
-        // Create an object to hold form data
-        const formDataObject = {};
-        formData.forEach((value, key) => {
-            formDataObject[key] = value;
-        });
+        // Get the 'username' value
+        const username = formData.get('username');
+        // Get the 'password' value 
+        const password = formData.get('password'); 
+
+        // Create an object to hold all the form information
+        const obj = {username, password}
 
         // Send form data to the server
         let response = await fetch('http://localhost:3001/', {
@@ -45,12 +49,16 @@ async function handleLogin(e) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(formDataObject),
+            body: JSON.stringify(obj),
             credentials: 'include'
         });
-        const {success} = await response.json();
+
+        // Get the response from the Server; True/False
+        const {success, message} = await response.json();
         if(success){
             navigate('/2fa')
+        }else{
+            console.log(message)
         }
     } catch (error) {
         // Log and handle any errors that occur
@@ -60,17 +68,27 @@ async function handleLogin(e) {
 
 // Function to handle Sign-up
 async function handleSignUp(event) {
-    console.log("got into teh sign up")
-    event.preventDefault(); // Prevent default form submission behavior
+    // Prevent default form submission behavior
+    event.preventDefault();
+
+    // Get the 'FormData' Object
     const formData = new FormData(event.target);
-    const name = formData.get('name'); // Get the 'form_text_area' message
-    const username = formData.get('username'); // Get the 'form_text_area' message
-    const email = formData.get('email'); // Get the 'form_text_area' message
-    const password = formData.get('password'); // Get the 'form_text_area' message
-    const phone = formData.get('phone'); // Get the 'form_text_area' message
-    
+
+    // Get the 'name' value
+    const name = formData.get('name');
+    // Get the 'username' value
+    const username = formData.get('username');
+    // Get the 'email' value
+    const email = formData.get('email');
+    // Get the 'password' value
+    const password = formData.get('password');
+    // Get the 'phone' value
+    const phone = formData.get('phone');
+
+    // Create and Object to hold all the form information
     const obj = {name, username, email, password, phone }
-    // Varaibles
+
+    // Response from the Server
     let response = null;
       
     // Try to send the data
@@ -84,10 +102,14 @@ async function handleSignUp(event) {
             body: JSON.stringify(obj),
             credentials: 'include',
         })
-        if(response.ok){
+        
+        // Get the response from the Server; True/False
+        const {success, msg} = await response.json()
+        if(success){
             navigate('/')
+        }else{
+            console.log(msg)
         }
-        console.log(response);
     } catch (error) {
         // Log and handle any errors that occur
         console.error('There was a problem with the form submission:', error);

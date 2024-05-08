@@ -33,7 +33,7 @@ router.post("/create_account", async (req, res) => {
             // Store secret in the DB
             await database.storeSecret(username, secret);
         } else {
-            res.status(200).json({"msg": "An Error occured, User not created"});
+            res.status(200).json({"msg": "An Error occured, User not created", "success": success});
         }
 
     } catch (error) {

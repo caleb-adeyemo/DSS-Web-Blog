@@ -86,12 +86,17 @@ window.onload = () => {
 // ============================ UNIVERSAL FUNCTIONS ===============================
 // Function to handle form submission
 const handleSubmit = async (event) => {
-  event.preventDefault(); // Prevent default form submission behavior
-  const formData = new FormData(event.target);
-  const message = formData.get('form_text_area'); // Get the 'form_text_area' message
 
-  console.log(message)
-  // Varaibles
+   // Prevent default form submission behavior
+  event.preventDefault();
+
+  // Get the information from the form
+  const formData = new FormData(event.target);
+
+  // Get the message form the post form
+  const postMessage = formData.get('form_text_area');
+
+  // Response from the server
   let response = null;
 
   // Try to send the data
@@ -102,19 +107,24 @@ const handleSubmit = async (event) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ postMessage }),
       credentials: 'include',
     })
+
+    const {success, message} = await response.json();
+
+    console.log("Success: " + success)
     // If the tweet sucessfully sent; debug success message
-    if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
-      toggleForm(); // Remove the form
-      location.reload(); // Reload the page to see the updates
+    if (success) {
+
+      // Toggle the form off
+      toggleForm();
+
+      // Reload the page to see the updates
+      location.reload();
 
     } else { // error log failed message
-      console.error(response.Error)
-      throw new Error('Failed to submit form');
+      console.log(message);
     }
   } catch (error) {
     console.error('Error submitting form:', error.message);
@@ -124,6 +134,8 @@ const handleSubmit = async (event) => {
 
 // Add event listener for form submission
 document.getElementById('postForm').addEventListener('submit', (event) => {
-  event.preventDefault(); // Prevent default form submission behavior
-  handleSubmit(event); // Call handleSubmit function with the event
+  // Prevent default form submission behavior
+  event.preventDefault();
+  // Call handleSubmit function with the event
+  handleSubmit(event); 
 });
