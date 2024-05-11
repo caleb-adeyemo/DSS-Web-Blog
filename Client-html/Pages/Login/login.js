@@ -1,7 +1,5 @@
 // login.js
 
-const { json } = require("express");
-
 // Function to navigate to a specific address
 const navigate = (address) => {
     window.location.href = address;
