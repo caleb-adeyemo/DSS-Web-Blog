@@ -58,12 +58,16 @@ const renderFeedPosts = (posts) => {
           <img class='editButton' src='../../Assets/SVG/edit.svg' alt='Edit' />
           <img class='deleteButton' src='../../Assets/SVG/delete.svg' alt='Edit' />
         </div>
-        <p class='post_message'>${post.post_msg}</p>
+        <p class='post_message'></p>
       </div>
       <div class='media'>
         <img src='../../Assets/Images/post.jpg' alt='post content media' />
       </div>
     `;
+    // Set the decoded message content as plain text
+    const postMessageElement = postElement.querySelector('.post_message');
+    postMessageElement.textContent = decodeURIComponent(post.post_msg);
+    
     feedContainer.appendChild(postElement);
 
     // Add event listener to each edit button

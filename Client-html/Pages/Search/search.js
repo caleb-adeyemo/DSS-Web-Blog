@@ -61,12 +61,17 @@ const renderFeedPosts = (posts) => {
           <img class='userDp' src='../../Assets/Images/emoji.jpg' alt='User DP' />
           <p class='username'>${post.c_name} <span class='userTag'>${post.c_tag}</span></p>
         </div>
-        <p class='post_message'>${post.post_msg}</p>
+        <p class='post_message'></p> <!-- Create an empty paragraph element -->
       </div>
       <div class='media'>
         <img src='../../Assets/Images/post.jpg' alt='post content media' />
       </div>
     `;
+
+    // Set the decoded message content as plain text
+    const postMessageElement = postElement.querySelector('.post_message');
+    postMessageElement.textContent = decodeURIComponent(post.post_msg);
+
     feedContainer.appendChild(postElement);
   });
 };
