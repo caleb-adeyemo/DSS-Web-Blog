@@ -5,11 +5,13 @@ function sanitizeMessage(message) {
 
     // Validate message length (e.g., maximum 280 characters)
     if (trimmedMessage.length > 280) {
-        return null; // Invalid message format
+        return null; // Message Too Long
     }
-    // Sanitize message to remove potentially harmful characters
-    const sanitizedMessage = trimmedMessage.replace(/[^\w\s]/gi, '');
-    return sanitizedMessage;
+
+    // Encode special characters using URL encoding
+    const encodedMessage = encodeURIComponent(trimmedMessage);
+
+    return encodedMessage;
 }
 
-module.exports = {sanitizeMessage};
+module.exports = { sanitizeMessage };

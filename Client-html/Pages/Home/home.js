@@ -45,6 +45,30 @@ document.getElementById('logOutButton').addEventListener('click', () => clearAll
 
 // ============================ FEED FUNCTIONS ===============================
 
+// <-------------- Vunurable to xss attacks --------> //
+// // Function to render feed posts
+// const renderFeedPosts = (posts) => {
+//   const feedContainer = document.getElementById('homeFeed');
+//   feedContainer.innerHTML = ''; // Clear previous feed content
+//   posts.forEach((post, index) => {
+//     const postElement = document.createElement('div');
+//     postElement.className = 'post';
+//     postElement.innerHTML = `
+//       <div class='post_top'>
+//         <div class='post-header'>
+//           <img class='userDp' src='../../Assets/Images/emoji.jpg' alt='User DP' />
+//           <p class='username'>${post.c_name} <span class='userTag'>${post.c_tag}</span></p>
+//         </div>
+//         <p class='post_message'>${post.post_msg}</p>
+//       </div>
+//       <div class='media'>
+//         <img src='../../Assets/Images/post.jpg' alt='post content media' />
+//       </div>
+//     `;
+//     feedContainer.appendChild(postElement);
+//   });
+// };
+
 // Function to render feed posts
 const renderFeedPosts = (posts) => {
   const feedContainer = document.getElementById('homeFeed');
@@ -58,16 +82,20 @@ const renderFeedPosts = (posts) => {
           <img class='userDp' src='../../Assets/Images/emoji.jpg' alt='User DP' />
           <p class='username'>${post.c_name} <span class='userTag'>${post.c_tag}</span></p>
         </div>
-        <p class='post_message'>${post.post_msg}</p>
+        <p class='post_message'></p> <!-- Create an empty paragraph element -->
       </div>
       <div class='media'>
         <img src='../../Assets/Images/post.jpg' alt='post content media' />
       </div>
     `;
+
+    // Set the decoded message content as plain text
+    const postMessageElement = postElement.querySelector('.post_message');
+    postMessageElement.textContent = decodeURIComponent(post.post_msg);
+
     feedContainer.appendChild(postElement);
   });
 };
-
 // Function to fetch feed data from backend
 const fetchFeedData = async () => {
   try {

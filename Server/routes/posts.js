@@ -16,9 +16,18 @@ router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
     try {
         let response = await database.getAllPosts()
         response = response.rows
+
+        // Iterate over the response array and decode each message
+        const decodedResponse = response.map(post => {
+            // Decode the message using decodeURIComponent()
+            post.post_msg = decodeURIComponent(post.post_msg);
+            console.log(post.post_msg)
+            return post;
+        });
+
         const data = {
             "message": "Load successful",
-            "data": response,
+            "data": decodedResponse,
             "status_code": 200,
         }
         res.status(200).send(data);
