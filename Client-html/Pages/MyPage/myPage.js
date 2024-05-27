@@ -1,5 +1,12 @@
+// Function to get CSRF tokens
+async function getCsrfToken() {
+  const response = await fetch('http://localhost:3001/home/csrf-token', {
+      credentials: 'include'
+  });
+  const data = await response.json();
+  return data.csrfToken;
+}
 // ============================ NAVIGATION FUNCTIONS ===============================
-
 // Function to navigate to a specific address
 const navigate = (address) => {
   window.location.href = address;
@@ -29,6 +36,7 @@ document.getElementById('navTags').addEventListener('click', () => handleNavItem
 document.getElementById('navBottom').addEventListener('click', () => handleNavItemClick('/myPage'));
 document.getElementById('popUpButton').addEventListener('click', () => toggleForm());
 document.getElementById('form-container-close').addEventListener('click', () => toggleForm());
+document.getElementById('logOutButton').addEventListener('click', () => clearAllCookies());
 
 
 
@@ -40,7 +48,6 @@ const renderFeedPosts = (posts) => {
   const feedContainer = document.getElementById('homeFeed');
   feedContainer.innerHTML = ''; // Clear previous feed content
   posts.forEach((post, index) => {
-    console.log("Post ID: "+ post.post_id + " Post Msg: " + post.post_msg)
     const postElement = document.createElement('div');
     postElement.className = 'post';
     postElement.innerHTML = `
@@ -135,7 +142,7 @@ window.onload = () => {
 const handleSearch = async (event) => {
   event.preventDefault(); // Prevent default form submission behavior
   const formData = new FormData(event.target);
-  const message = formData.get('form_text_area'); // Get the 'form_text_area' message
+  const postMessage = formData.get('form_text_area'); // Get the 'form_text_area' message
   const post_id = formData.get('post_id'); // Get the post_id if exists (for editing)
 
 
@@ -144,14 +151,16 @@ const handleSearch = async (event) => {
 
   // Try to send the data
   try {
+    let csrfToken = await getCsrfToken();
     let url = ['http://localhost:3001/home', 'http://localhost:3001/user/edit'];
-    if (post_id){
+    if (post_id){ // Editing posts
       response = await fetch(url[1], {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'CSRF-Token': csrfToken // Include CSRF token in the header
         },
-        body: JSON.stringify({ post_id, message }),
+        body: JSON.stringify({ post_id, message: postMessage }),
         credentials: 'include',
       })
     }
@@ -160,8 +169,9 @@ const handleSearch = async (event) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'CSRF-Token': csrfToken // Include CSRF token in the header
         },
-        body: JSON.stringify({ message }),
+        body: JSON.stringify({ postMessage }),
         credentials: 'include',
       })
     }
@@ -192,11 +202,13 @@ document.getElementById('postForm').addEventListener('submit', (event) => {
 const handleDelete = async (post_id) => {
   // Try to send the data
   try {
+    let csrfToken = await getCsrfToken();
     let url = ['http://localhost:3001/user/deletePost'];
     response = await fetch(url[0], {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'CSRF-Token': csrfToken // Include CSRF token in the header
       },
       body: JSON.stringify({ post_id }),
       credentials: 'include',
@@ -216,3 +228,22 @@ const handleDelete = async (post_id) => {
     console.error('Error submitting form:', error.message);
   }
 };
+
+// Log out
+// Function to clear all cookies
+function clearAllCookies() {
+  // Get all cookies
+  const cookies = document.cookie.split(';');
+
+  // Iterate through each cookie and delete it
+  cookies.forEach(cookie => {
+      const cookieParts = cookie.split('=');
+      const cookieName = cookieParts[0].trim();
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  });
+  
+  // Remove all cookies by setting document.cookie to an empty string
+  document.cookie = '';
+  // Route to log in page
+  navigate('/')
+}

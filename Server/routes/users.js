@@ -4,6 +4,13 @@ const database = require("../database_queries/users");
 const bcrypt = require("bcrypt");
 const tokenFunctions = require("../Authentication/auth")
 const {authenticator} = require('otplib');
+const csrfProtection = require("../CSRF/csfr");
+
+
+// Route to send CSRF token to the client
+router.get('/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+});
 
 
 // Create Users
@@ -15,7 +22,7 @@ router.post("/create_account", async (req, res) => {
     const password = req.body.password;
     const phone = req.body.phone;
 
-    // Try to validate the credentials
+    // Try to validate the credentials 
     try {
         // Create Salt to append to the password
         const salt = await bcrypt.genSalt()
@@ -73,11 +80,7 @@ router.get("/personal_page", tokenFunctions.authenticateToken, async (req, res) 
 });
 
 // Edit Users Personal tweets
-router.post("/edit", tokenFunctions.authenticateToken, async (req, res) => {
-    // Debug
-    console.log("It went to the edit route!!!")
-    console.log(req.body)
-    
+router.post("/edit", tokenFunctions.authenticateToken, csrfProtection, async (req, res) => {
     try {
         // GET THE Post ID FROM THE req
         const postID = req.body.post_id;
@@ -105,7 +108,7 @@ router.post("/edit", tokenFunctions.authenticateToken, async (req, res) => {
 });
 
 // Delete Users Personal tweets
-router.post("/deletePost", tokenFunctions.authenticateToken, async (req, res) => {
+router.post("/deletePost", tokenFunctions.authenticateToken, csrfProtection, async (req, res) => {
     // Debug
     console.log("It went to the delete route!!!")
     console.log(req.body)

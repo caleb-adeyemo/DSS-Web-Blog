@@ -3,6 +3,13 @@ const router = express.Router();
 const database = require("../database_queries/users");
 const tokenFunctions = require("../Authentication/auth")
 const validator = require("../Validation/validate")
+const csrfProtection = require("../CSRF/csfr");
+
+
+// Route to send CSRF token to the client
+router.get('/csrf-token', (req, res) => {
+    res.json({ csrfToken: req.csrfToken() });
+});
 
 
 router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
@@ -27,7 +34,7 @@ router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
 });
 
 
-router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
+router.post("/", tokenFunctions.authenticateToken, csrfProtection, async (req, res) => {
 
     // GET THE USERNAME FROM THE COOKIES
     const username = req.cookies.username;
@@ -44,7 +51,7 @@ router.post("/", tokenFunctions.authenticateToken, async (req, res) => {
             "message": "Invalid message format",
             "success": false
         };
-        return res.status(200).send(data);
+        return res.status(200).send(data); 
     }
 
     try {

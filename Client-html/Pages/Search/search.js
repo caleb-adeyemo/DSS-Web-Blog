@@ -1,3 +1,12 @@
+// Function to get CSRF tokens
+async function getCsrfToken() {
+  const response = await fetch('http://localhost:3001/home/csrf-token', {
+      credentials: 'include'
+  });
+  const data = await response.json();
+  return data.csrfToken;
+}
+
 // ============================ NAV BAR FUNCTIONS ===============================
 
 const navName = document.getElementById('navName'); // Add User's name
@@ -35,6 +44,7 @@ document.getElementById('navTags').addEventListener('click', () => handleNavItem
 document.getElementById('navBottom').addEventListener('click', () => handleNavItemClick('/myPage'));
 document.getElementById('popUpButton').addEventListener('click', () => toggleForm());
 document.getElementById('form-container-close').addEventListener('click', () => toggleForm());
+document.getElementById('logOutButton').addEventListener('click', () => clearAllCookies());
 
 // ============================ FEED FUNCTIONS ===============================
 
@@ -100,10 +110,12 @@ const handleSubmit = async (event) => {
   // Try to send the data
   try {
     let url = ['http://localhost:3001/home'];
-    response =await fetch(url[0], {
+    let csrfToken = await getCsrfToken();
+    response = await fetch(url[0], {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'CSRF-Token': csrfToken // Include CSRF token in the header
       },
       body: JSON.stringify({ message }),
       credentials: 'include',
@@ -138,11 +150,13 @@ const handleSearch = async () => {
   console.log(JSON.stringify(message))
 
   try {
+    let csrfToken = await getCsrfToken();
     const response = await fetch('http://localhost:3001/search', {
       method: 'Post',
       body: JSON.stringify(message),
       headers: {
         'Content-Type': 'application/json',
+        'CSRF-Token': csrfToken // Include CSRF token in the header
       },
       credentials: 'include',
     });
@@ -159,3 +173,22 @@ const handleSearch = async () => {
 };
 // Add event listener
 search_img.addEventListener('click', ()=> handleSearch())
+
+// Log out
+// Function to clear all cookies
+function clearAllCookies() {
+  // Get all cookies
+  const cookies = document.cookie.split(';');
+
+  // Iterate through each cookie and delete it
+  cookies.forEach(cookie => {
+      const cookieParts = cookie.split('=');
+      const cookieName = cookieParts[0].trim();
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+  });
+  
+  // Remove all cookies by setting document.cookie to an empty string
+  document.cookie = '';
+  // Route to log in page
+  navigate('/')
+}

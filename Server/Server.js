@@ -1,39 +1,50 @@
-const express = require("express"); // Express
-const cors = require('cors'); // Routing
-const cookieParser = require('cookie-parser'); // Cookies
+const express = require("express");
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const csurf = require('csurf');
 
-const app = express()
+const app = express();
 
-// Use the cors middleware to allow requests from specific origins
-// Allow requests from multiple origins
+// CORS configuration
 const allowedOrigins = ['http://localhost:3000', 'http://127.0.0.1:5500', 'http://localhost:8000'];
 app.use(cors({
     origin: function (origin, callback) {
-        // Check if the request origin is in the allowedOrigins array
         if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true); // Allow the request
+            callback(null, true);
         } else {
-            callback(new Error('Not allowed by CORS')); // Block the request
+            callback(new Error('Not allowed by CORS'));
         }
     },
-    credentials: true // Allow cookies to be sent along with the request
+    credentials: true
 }));
 
-app.use(express.json())
+// CSRF protection middleware
+const csrfProtection = csurf({ cookie: true });
+
+app.use(express.json());
 app.use(cookieParser());
+app.use('/user', csrfProtection);
+app.use('/home', csrfProtection);
+app.use('/search', csrfProtection);
 
 
-const PORT = 3001;
-app.listen(PORT, () => { console.log(`server listening at port ${PORT}`) }); // Starts actuall server
-
-// Import route files
+// Routes
 const loginRoute = require('./routes/login');
 const userRoute = require('./routes/users');
 const postRoute = require('./routes/posts');
 const searchRoute = require('./routes/search');
 
-// Use route files
 app.use('/', loginRoute);
 app.use('/user', userRoute);
 app.use('/home', postRoute);
-app.use('/search', searchRoute)
+app.use('/search', searchRoute);
+
+// // Route to send CSRF token to the client
+// app.get('/csrf-token', (req, res) => {
+//     res.json({ csrfToken: req.csrfToken() });
+// });
+
+const PORT = 3001;
+app.listen(PORT, () => {
+    console.log(`server listening at port ${PORT}`);
+});

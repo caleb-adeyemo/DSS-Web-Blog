@@ -45,7 +45,7 @@ async function handleLogin(e) {
         let response = await fetch('http://localhost:3001/', {
             method: 'Post',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(obj),
             credentials: 'include'
