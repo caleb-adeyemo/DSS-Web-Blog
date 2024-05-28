@@ -14,13 +14,14 @@ const email = urlParams.get('email');
 if (email) {
     emailInput.value = email;
 }
+const token = urlParams.get('token');
 
-// Handle form submission
+if (token){
+    // Handle form submission
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const formData = new FormData(form);
-    const email = formData.get('email');
     const newPassword = formData.get('password');
 
     // Send reset password request to server
@@ -29,7 +30,7 @@ form.addEventListener('submit', async (e) => {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ email, newPassword })
+        body: JSON.stringify({ token, newPassword })
     });
 
     const data = await response.json();
@@ -41,3 +42,4 @@ form.addEventListener('submit', async (e) => {
         navigate("/");
     }
 });
+}

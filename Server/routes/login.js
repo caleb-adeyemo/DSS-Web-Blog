@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
         const match = await bcrypt.compare(password, dbPassword);
 
         if (match) {
-            const accessToken = tokenFunctions.generateToken(username, process.env.AUTH_TOKEN_LIFE_SPAN);
+            const accessToken = tokenFunctions.generate_access_refresh_Token(username, process.env.AUTH_TOKEN_LIFE_SPAN);
             let secret = await databaseUser.getUsersSecret(username);
             const otpUrl = authenticator.keyuri(username, 'logger LTM', secret);
             const qrCodeImageDataUrl = await qrCode.toDataURL(otpUrl);
@@ -43,8 +43,8 @@ router.post("/Auth/Qrcode", tokenFunctions.authenticateToken, async (req, res) =
         const isValid = authenticator.verify({ token: otp, secret });
 
         if (isValid) {
-            const accessToken = tokenFunctions.generateToken(username, process.env.ACCESS_TOKEN_LIFE_SPAN);
-            const refreshToken = tokenFunctions.generateToken(username, process.env.REFRESH_TOKEN_LIFE_SPAN);
+            const accessToken = tokenFunctions.generate_access_refresh_Token(username, process.env.ACCESS_TOKEN_LIFE_SPAN);
+            const refreshToken = tokenFunctions.generate_access_refresh_Token(username, process.env.REFRESH_TOKEN_LIFE_SPAN);
             const name = await databaseUser.getUsersName(username);
 
             res.cookie('accessToken', accessToken, { httpOnly: true });

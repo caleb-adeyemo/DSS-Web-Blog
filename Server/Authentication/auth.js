@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 
 // Function to generate access or refresh token
-function generateToken(username, expTime) {
+function generate_access_refresh_Token(username, expTime) {
     const user = {
         username: username,
         exp: Math.floor(Date.now() / 1000) + (expTime * 60), // Expiration time in minutes
@@ -10,6 +10,16 @@ function generateToken(username, expTime) {
     return jwt.sign(user, process.env.ACCESS_SECRET_TOKEN);
 }
 
+// Function to generate access or refresh token
+function generate_password_reset_Token(email, valid,  expTime) {
+    const info = {
+        email: email,
+        valid: valid,
+        exp: Math.floor(Date.now() / 1000) + (expTime * 60), // Expiration time in minutes
+        iat: Math.floor(Date.now() / 1000) // Issued at time
+    };
+    return jwt.sign(info, process.env.ACCESS_SECRET_TOKEN);
+}
 
 function authenticateToken(req, res, next) {
     // Extract the access token and refresh token from the cookies
@@ -44,7 +54,7 @@ function authenticateToken(req, res, next) {
                 console.log("refresh token is valid");
 
                 // Generate a new access token
-                const newAccessToken = generateToken(refreshTokenPayload.username, process.env.ACCESS_TOKEN_LIFE_SPAN);
+                const newAccessToken = generate_access_refresh_Token(refreshTokenPayload.username, process.env.ACCESS_TOKEN_LIFE_SPAN);
                 
                 // // Attach the user information and new access token to the request object
                 // req.cookies.accessToken = newAccessToken;
@@ -68,4 +78,4 @@ function authenticateToken(req, res, next) {
     });
 }
 
-module.exports = {generateToken, authenticateToken};
+module.exports = {generate_access_refresh_Token, authenticateToken, generate_password_reset_Token};

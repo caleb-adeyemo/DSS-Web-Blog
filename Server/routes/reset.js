@@ -10,13 +10,16 @@ const database = require("../database_queries/users");
 const bcrypt = require("bcrypt");
 
 const tokenFunctions = require("../Authentication/auth")
-const validator = require("../Validation/validate")
-const csrfProtection = require("../CSRF/csfr");
+const jwt = require('jsonwebtoken');
+
 
 
 // Route to send reset link
 router.post('/', (req, res) => {
     const { email } = req.body;
+
+    // Generate token
+    const resetPasswordToken = tokenFunctions.generate_password_reset_Token(email, true, 30); // 30mins
 
     // Send email logic here
     const transporter = nodemailer.createTransport({
@@ -31,7 +34,7 @@ router.post('/', (req, res) => {
         from: process.env.ADMIN_EMAIL,
         to: email,
         subject: 'Logger password Reset Link',
-        text: 'Here is your password reset link: http://localhost:8000/send-reset-link/reset-password?email=' + encodeURIComponent(email),
+        text: 'Here is your password reset link: http://localhost:8000/send-reset-link/reset-password?token=' + encodeURIComponent(resetPasswordToken) + '&email=' + encodeURIComponent(email),
     };
 
     transporter.sendMail(mailOptions, (error, info) => {
@@ -47,22 +50,34 @@ router.post('/', (req, res) => {
 
 // Route to handle password reset
 router.post('/reset-password', async (req, res) => {
-    const { email, newPassword } = req.body;
+    const { token, newPassword } = req.body;
 
-    // Create Salt to append to the password
-    const salt = await bcrypt.genSalt()
+    // Verify the token
+    jwt.verify(token, process.env.ACCESS_SECRET_TOKEN, async (err, decoded) => {
+        if (err || !decoded.valid) {
+            return res.status(400).json({ success: false, message: 'Invalid or expired token' });
+        }
 
-    // Hash the password
-    const hPassword = await bcrypt.hash(newPassword, salt)
+        const email = decoded.email;
 
-    // Database update logic here
-    const success = await database.changeUserPassword(email, hPassword);
-    if (success) {
-        res.status(200).json({"msg": "password reset successful", "success": success});
+        // Create Salt to append to the password
+        const salt = await bcrypt.genSalt();
 
-    } else {
-        res.status(200).json({"msg": "An Error occured, pasword reset not successful", "success": success});
-    }
+        // Hash the password
+        const hPassword = await bcrypt.hash(newPassword, salt);
+
+        // Database update logic here
+        const success = await database.changeUserPassword(email, hPassword);
+        if (success) {
+            // Invalidate the token after use
+            decoded.valid = false;
+            const invalidatedToken = jwt.sign(decoded, process.env.ACCESS_SECRET_TOKEN);
+            
+            res.status(200).json({ success: true, message: 'Password reset successful', invalidatedToken });
+        } else {
+            res.status(500).json({ success: false, message: 'Error resetting password' });
+        }
+    });
 });
 
 module.exports = router;
