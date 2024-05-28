@@ -14,9 +14,8 @@ CREATE TABLE users (
         c_password ~ '^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\s]).{8,}$'
     ),
     c_phoneno VARCHAR(15) UNIQUE CHECK (c_phoneno ~ '^\+?[0-9]{11,15}$'),
-    c_secret_key_otp VARCHAR(50) NOT NULL
+    c_secret_key_otp VARCHAR(50)
 );
-
 
 -- Posts table (tweets and comments)
 create table posts (
@@ -39,14 +38,14 @@ create table posts (
 -- delete from posts
 
 --====================================== Select Stuff =======================================================
--- select * from users;
--- select * from posts;
+select * from users;
+select * from posts;
 
 --====================================== Useful Queries =======================================================
 -- select u.c_name, u.c_tag, p.post_msg from users u, posts p
 -- where u.c_no = p.c_no
--- order by p.post_time asc
+-- order by p.post_time asc;
 
 
 -- select u.c_name, u.c_tag, p.post_id, p.post_msg from users u, posts p WHERE u.c_tag = p.c_tag and 
---                 p.post_msg LIKE 'www.netflix.com'
+--                 p.post_msg LIKE 'www.netflix.com';
