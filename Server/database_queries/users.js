@@ -71,7 +71,28 @@ async function getUsersSecret(username){
         return false;
     }
 }
+async function changeUserPassword(email, newPassword){
+    const qry = `
+    UPDATE users 
+    SET c_password = $1 
+    WHERE c_email = $2;`;
 
+    try {
+        // Set the search path before running query
+        await setSchema();
+        const rows = await pool.query(qry, [newPassword, email]);
+        // Return Bool if update was successful or not
+        if(rows.rowCount > 0){
+            return true; // Password updated successfully
+        } else {
+            return false; // No rows updated, possibly user with given email not found
+        }
+    } catch (error) {
+        console.error("Error changing user password:", error);
+        // Return false if an error occurs during password change
+        return false;
+    }
+}
 async function getUsersPosts(username){
     const qry = `select p.post_id, p.post_msg from posts p where p.c_tag = $1;`;
 
@@ -163,6 +184,7 @@ async function editPost(post_id, message) {
 
 module.exports = {
     createUsers,
+    changeUserPassword,
     storeSecret,
     getUsersSecret,
     getUsersPosts,

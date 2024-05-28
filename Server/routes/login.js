@@ -62,4 +62,44 @@ router.post("/Auth/Qrcode", tokenFunctions.authenticateToken, async (req, res) =
     }
 });
 
+// Create Users
+router.post("/create_account", async (req, res) => {
+    // Decompose the credentials json obj
+    const name = req.body.name;
+    const username = req.body.username;
+    const email = req.body.email;
+    const password = req.body.password;
+    const phone = req.body.phone;
+
+    // Try to validate the credentials 
+    try {
+        // Create Salt to append to the password
+        const salt = await bcrypt.genSalt()
+
+        // Hash the password
+        const hPassword = await bcrypt.hash(password, salt)
+
+        // Bool 'success' if user was successfully added to hte data base
+        const success = await databaseUser.createUsers(name, username, email, hPassword, phone);
+        if (success) {
+            res.status(200).json({"msg": "User successfully Created", "success": success});
+            // Generate secret key for user; for OTP
+            const secret = authenticator.generateSecret();
+
+            // Store secret in the DB
+            await databaseUser.storeSecret(username, secret);
+        } else {
+            res.status(200).json({"msg": "An Error occured, User not created", "success": success});
+        }
+
+    } catch (error) {
+        console.error("Error:", error);
+        const data = {
+            "message": "Internal Server Error",
+            "status_code": 500
+        };
+        res.status(500).send(data);
+    }
+});
+
 module.exports = router;

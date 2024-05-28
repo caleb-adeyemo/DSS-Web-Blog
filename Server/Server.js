@@ -3,6 +3,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const csurf = require('csurf');
 
+
 const app = express();
 
 // CORS configuration
@@ -27,22 +28,24 @@ app.use('/user', csrfProtection);
 app.use('/home', csrfProtection);
 app.use('/search', csrfProtection);
 
+// Middleware to parse URL-encoded bodies
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 const loginRoute = require('./routes/login');
 const userRoute = require('./routes/users');
 const postRoute = require('./routes/posts');
 const searchRoute = require('./routes/search');
+const resetRoute = require('./routes/reset');
+
 
 app.use('/', loginRoute);
 app.use('/user', userRoute);
 app.use('/home', postRoute);
 app.use('/search', searchRoute);
+app.use('/send-reset-link', resetRoute);
 
-// // Route to send CSRF token to the client
-// app.get('/csrf-token', (req, res) => {
-//     res.json({ csrfToken: req.csrfToken() });
-// });
+
 
 const PORT = 3001;
 app.listen(PORT, () => {

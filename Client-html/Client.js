@@ -31,6 +31,16 @@ app.get('/search', (req, res) => {
   res.sendFile(path.join(__dirname, 'Pages', 'Search', 'search.html'));
 });
 
+app.get('/forgot', (req, res) => {
+  // Send the index.html file from the 'Login' directory
+  res.sendFile(path.join(__dirname, 'Pages', 'Forgot', 'forgot.html'));
+});
+
+app.get('/send-reset-link/reset-password', (req, res) => {
+  // Send the index.html file from the 'Login' directory
+  res.sendFile(path.join(__dirname, 'Pages', 'Reset', 'password_reset.html'));
+});
+
 // Start the server
 const PORT = 8000;
 app.listen(PORT, () => {

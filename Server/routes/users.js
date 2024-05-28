@@ -13,46 +13,6 @@ router.get('/csrf-token', (req, res) => {
 });
 
 
-// Create Users
-router.post("/create_account", async (req, res) => {
-    // Decompose the credentials json obj
-    const name = req.body.name;
-    const username = req.body.username;
-    const email = req.body.email;
-    const password = req.body.password;
-    const phone = req.body.phone;
-
-    // Try to validate the credentials 
-    try {
-        // Create Salt to append to the password
-        const salt = await bcrypt.genSalt()
-
-        // Hash the password
-        const hPassword = await bcrypt.hash(password, salt)
-
-        // Bool 'success' if user was successfully added to hte data base
-        const success = await database.createUsers(name, username, email, hPassword, phone);
-        if (success) {
-            res.status(200).json({"msg": "User successfully Created", "success": success});
-            // Generate secret key for user; for OTP
-            const secret = authenticator.generateSecret();
-
-            // Store secret in the DB
-            await database.storeSecret(username, secret);
-        } else {
-            res.status(200).json({"msg": "An Error occured, User not created", "success": success});
-        }
-
-    } catch (error) {
-        console.error("Error:", error);
-        const data = {
-            "message": "Internal Server Error",
-            "status_code": 500
-        };
-        res.status(500).send(data);
-    }
-});
-
 // Get Users Personal tweets
 router.get("/personal_page", tokenFunctions.authenticateToken, async (req, res) => {
     try {
@@ -61,10 +21,19 @@ router.get("/personal_page", tokenFunctions.authenticateToken, async (req, res) 
         
         // GET ALL THE POSTS RELATING TO THE USERNAME
         let response = await database.getUsersPosts(username)
+        response = response.rows
+
+        // Iterate over the response array and decode each message
+        const decodedResponse = response.map(post => {
+            // Decode the message using decodeURIComponent()
+            post.post_msg = decodeURIComponent(post.post_msg);
+            console.log(post.post_msg)
+            return post;
+        });
 
         const data = {
             "message": "Load successful",
-            "data": response.rows,
+            "data": decodedResponse,
             "status_code": 200,
         }
         res.status(200).send(data);
@@ -86,7 +55,7 @@ router.post("/edit", tokenFunctions.authenticateToken, csrfProtection, async (re
         const postID = req.body.post_id;
         const postMessage = req.body.message;
         
-        // GET ALL THE POSTS RELATING TO THE USERNAME
+        // GET THE POST RELATING TO THE post id
         let response = await database.editPost(postID, postMessage)
 
         console.log(response)

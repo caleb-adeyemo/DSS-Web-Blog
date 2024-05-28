@@ -91,7 +91,7 @@ async function handleSignUp(event) {
       
     // Try to send the data
     try {
-        let url = ['http://localhost:3001/user/create_account'];
+        let url = ['http://localhost:3001/create_account'];
         response =await fetch(url[0], {
             method: 'POST',
             headers: {
