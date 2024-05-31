@@ -15,7 +15,7 @@ router.post("/", tokenFunctions.authenticateToken, csrfProtection, async (req, r
     const searchValue = req.body["value"]
 
     // Debug
-    console.log("searchValue: " + searchValue)
+    // console.log("searchValue: " + searchValue)
     try {
         // TRY TO GET POST CONTAINING SEARCH WORD
         let response = await database.getPostsWithWord(searchValue)

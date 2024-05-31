@@ -154,7 +154,7 @@ const handleSubmit = async (event) => {
 
     const {success, message} = await response.json();
 
-    console.log("Success: " + success)
+    // console.log("Success: " + success)
     // If the tweet sucessfully sent; debug success message
     if (success) {
 

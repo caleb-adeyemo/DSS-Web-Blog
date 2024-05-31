@@ -96,7 +96,7 @@ const handleEditClick = (post_id, message) => {
 const handleDeleteClick = (post_id) => {
   // Store post_id in a hidden input field
   document.getElementById('post_id').value = post_id;
-  console.log(post_id);
+  // console.log(post_id);
   // Delete the post 
   handleDelete(post_id);
 };
@@ -182,7 +182,7 @@ const handleSearch = async (event) => {
     // If the tweet sucessfully sent; debug success message
     if (response.ok) {
       const data = await response.json();
-      console.log(data.message);
+      // console.log(data.message);
       toggleForm(); // Remove the form
       location.reload(); // Reload the page to see the updates
 
@@ -219,8 +219,8 @@ const handleDelete = async (post_id) => {
     })
     // If the tweet sucessfully sent; debug success message
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
+      // const data = await response.json();
+      // console.log(data.message);
       // Reload the page to see the updates
       location.reload();
 

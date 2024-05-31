@@ -108,7 +108,7 @@ const handleSubmit = async (event) => {
   const formData = new FormData(event.target);
   const message = formData.get('form_text_area'); // Get the 'form_text_area' message
 
-  console.log(message)
+  // console.log(message)
   // Varaibles
   let response = null;
 
@@ -127,8 +127,8 @@ const handleSubmit = async (event) => {
     })
     // If the tweet sucessfully sent; debug success message
     if (response.ok) {
-      const data = await response.json();
-      console.log(data.message);
+      // const data = await response.json();
+      // console.log(data.message);
       toggleForm(); // Remove the form
       location.reload(); // Reload the page to see the updates
 
@@ -152,7 +152,7 @@ document.getElementById('postForm').addEventListener('submit', (event) => {
 const handleSearch = async () => {
 
   const message = {value: search_input.value}
-  console.log(JSON.stringify(message))
+  // console.log(JSON.stringify(message))
 
   try {
     let csrfToken = await getCsrfToken();
@@ -167,7 +167,7 @@ const handleSearch = async () => {
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data)
+      // console.log(data)
       renderFeedPosts(data.data)
     } else {
       throw new Error('Failed to submit form');

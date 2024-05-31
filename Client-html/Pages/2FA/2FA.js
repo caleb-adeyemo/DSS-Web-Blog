@@ -54,7 +54,7 @@ const handleSubmit = async (event) => {
       // If the request is successful
       if (success) {
           // Log the response data
-          console.log(message);
+        //   console.log(message);
           // Navigate to home
           navigate("/home");
       } else {

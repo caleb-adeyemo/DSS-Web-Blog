@@ -27,7 +27,7 @@ router.get("/personal_page", tokenFunctions.authenticateToken, async (req, res) 
         const decodedResponse = response.map(post => {
             // Decode the message using decodeURIComponent()
             post.post_msg = decodeURIComponent(post.post_msg);
-            console.log(post.post_msg)
+            // console.log(post.post_msg)
             return post;
         });
 
@@ -58,7 +58,7 @@ router.post("/edit", tokenFunctions.authenticateToken, csrfProtection, async (re
         // GET THE POST RELATING TO THE post id
         let response = await database.editPost(postID, postMessage)
 
-        console.log(response)
+        // console.log(response)
         const data = {
             "message": "Edit successful",
             "data": response,
@@ -79,8 +79,8 @@ router.post("/edit", tokenFunctions.authenticateToken, csrfProtection, async (re
 // Delete Users Personal tweets
 router.post("/deletePost", tokenFunctions.authenticateToken, csrfProtection, async (req, res) => {
     // Debug
-    console.log("It went to the delete route!!!")
-    console.log(req.body)
+    // console.log("It went to the delete route!!!")
+    // console.log(req.body)
     
     try {
         // GET THE Post ID FROM THE req
@@ -89,7 +89,7 @@ router.post("/deletePost", tokenFunctions.authenticateToken, csrfProtection, asy
         // GET ALL THE POSTS RELATING TO THE USERNAME
         let response = await database.deletePost(postID)
 
-        console.log(response)
+        // console.log(response)
         const data = {
             "message": "Delete successful",
             "data": response,

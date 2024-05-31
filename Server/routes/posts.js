@@ -21,7 +21,7 @@ router.get("/", tokenFunctions.authenticateToken, async (req, res) => {
         const decodedResponse = response.map(post => {
             // Decode the message using decodeURIComponent()
             post.post_msg = decodeURIComponent(post.post_msg);
-            console.log(post.post_msg)
+            // console.log(post.post_msg)
             return post;
         });
 

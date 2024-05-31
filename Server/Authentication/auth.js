@@ -62,7 +62,7 @@ function authenticateToken(req, res, next) {
                 // Set the new access token as a cookie
                 res.cookie('accessToken', newAccessToken, { httpOnly: true });
                 
-                console.log("RESET THE TOKENS!!!!!!.... IT WORKS")
+                console.log("RESET THE TOKENS!!!!!!....")
 
                 // Call the next middleware in the chain
                 next();

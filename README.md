@@ -54,7 +54,7 @@ To further enhance security, our blog implements two-factor authentication (2FA)
 
 1. ### Account Enumeration Mitigation
 
-To mitigate account enumeration:
+    To mitigate account enumeration:
 - We use generic error messages on failed user authentication which does not disclose whether the username or password
 entered is valid or not.
 
@@ -135,3 +135,29 @@ entered is valid or not.
 
 ---
 
+## Account Recovery
+
+### Forgot Password
+The forgot password feature allows users to recover their accounts by resetting their passwords. Follow the steps below to utilize this feature:
+1. Navigating to the Forgot Password Page:
+    - Users can navigate to the forgot password page by clicking the `Forgot Password` link on the login form.
+2.	Entering the Email Address:
+    -	On the forgot password page, users are prompted to enter the email address associated with their account.
+3.	Sending the Reset Password Email:
+    -	Once the email address is entered, the system sends a reset password email to the provided address using `Nodemailer`.
+    -	The email contains a reset password link with an encoded token.
+4.	Token Information:
+    -	The token included in the reset password link contains the following information:
+    -	`Email`: The email address associated with the account.
+    -	`Validity`: A boolean indicating whether the token has been used.
+    -	`Expiration`: The token is valid for 30 minutes to ensure it is rendered useless after this period.
+5.	Following the Reset Password Link:
+    -	When the user clicks the reset password link in the email, they are routed to the reset password page.
+    -	The email field on this page is automatically populated with the email address extracted from the token.
+    -	For security reasons, this email input field is `disabled` to prevent tampering and ensure that the user can only reset their own password.
+6.	Resetting the Password:
+    -	The user enters their new password in the provided input field.
+    -	The new password is hashed and securely stored in the database.
+    -	After successfully resetting the password, the user is redirected to the login page to log in with their new credentials.
+
+This process ensures a secure and efficient way for users to recover their accounts while maintaining the integrity and security of users data.
